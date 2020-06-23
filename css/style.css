@@ -1,0 +1,80 @@
+.header {
+    height:70px;
+    background-color: darkred;
+}
+
+stitre
+{
+    text-align:center;
+}
+
+#logo {
+    display:inline;
+    float:left;
+}
+
+.header img{
+    height:60px;
+    margin-right:10px;
+}
+
+.header a{
+    float:left;
+    margin-left:10px;
+    center:vertical;
+}
+
+#header form {
+    float:right;
+}
+
+#header input {
+    float:left;
+}
+
+#pied {
+    bottom:5px;left:5px;right:5px;
+    border-top :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+#corps {
+    border :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+#titre {
+    border :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
