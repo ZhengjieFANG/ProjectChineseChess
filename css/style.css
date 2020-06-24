@@ -3,11 +3,6 @@
     background-color: darkred;
 }
 
-stitre
-{
-    text-align:center;
-}
-
 #logo {
     display:inline;
     float:left;
@@ -18,10 +13,24 @@ stitre
     margin-right:10px;
 }
 
-.header a{
-    float:left;
-    margin-left:10px;
-    center:vertical;
+.header .soutitre{
+    position: relative;
+    display: inline-block;
+    margin: 0px;
+    width: 160px;
+    height:70px;
+    text-align:center;
+    line-height: 70px;
+}
+
+.header .soutitre:hover{
+    background-color: maroon;
+}
+
+a:link{
+
+    color: #f7f7fa;
+
 }
 
 #header form {
