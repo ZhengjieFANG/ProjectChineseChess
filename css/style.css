@@ -1,0 +1,89 @@
+.header {
+    height:70px;
+    background-color: darkred;
+}
+
+#logo {
+    display:inline;
+    float:left;
+}
+
+.header img{
+    height:60px;
+    margin-right:10px;
+}
+
+.header .soutitre{
+    position: relative;
+    display: inline-block;
+    margin: 0px;
+    width: 160px;
+    height:70px;
+    text-align:center;
+    line-height: 70px;
+}
+
+.header .soutitre:hover{
+    background-color: maroon;
+}
+
+a:link{
+
+    color: #f7f7fa;
+
+}
+
+#header form {
+    float:right;
+}
+
+#header input {
+    float:left;
+}
+
+#pied {
+    bottom:5px;left:5px;right:5px;
+    border-top :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+#corps {
+    border :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+#titre {
+    border :1px solid black;
+    padding:20px;
+    margin:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
