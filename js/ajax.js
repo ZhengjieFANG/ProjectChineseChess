@@ -1,5 +1,5 @@
 
-var URL_BASE = "../data";
+var URL_BASE = "./data";
 var hash = null;
 var etatPage=null;
 
@@ -88,10 +88,26 @@ function getAmis(showAmis){
 function getEtatTable(idTable){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/salon.php",
-        data: {"idTable":idTable},
+		url: URL_BASE + "/salon.php",
+        data: {"idTable":idTable,"getEtatTable" : "1"},
         success: function(oRep){
+			//{"sit1":"0","sit2":"0","sit1Ready":"0","sit2Ready":"0","onReady":"0"}
 			console.log(oRep);
+			if(oRep.sit1!="0"){
+				var nomSit = "chaise" + idTable + "1";
+				$("#"+nomSit).css("background-color","black");
+				$("#"+nomSit).text(oRep.sit1);
+			}
+			if(oRep.sit2!="0"){
+				var nomSit = "chaise" + idTable + "2";
+				$("#"+nomSit).css("background-color","black");
+				$("#"+nomSit).text(oRep.sit2);
+			}
+			var nomTable = "table" + idTable;
+			if (oRep.onReady == 0) $("#"+nomTable).text("table incomplet");
+			if (oRep.onReady == 1) $("#"+nomTable).text("table not ready");
+			if (oRep.onReady == 2) $("#"+nomTable).text("table ready");
+			// var etatTable
 		},
 		dataType: "json"
 	});

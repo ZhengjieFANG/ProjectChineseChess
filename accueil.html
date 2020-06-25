@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<!DOCTYPE html-->
+<!--        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"-->
+<!--        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>ChieneseChess</title>
+    <title>ChineseChess</title>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 
-<script src="js/jquery-3.5.1.min.js" ></script>
+<script src="js_test/jquery-3.5.1.min.js" ></script>
 <script src="js/utils.js"></script>
 <script src="js/ajax.js"></script>
 <script>
@@ -17,7 +17,15 @@
     $(document).ready(function(){
         console.log("Accueil par default");
         showAccueil();
+        setInterval(getEtatTable(1),1000);
+        setInterval(getEtatTable(2),1000);
+        setInterval(getEtatTable(3),1000);
+        setInterval(getEtatTable(4),1000);
     });
+
+    var jTaPseudo=$('<input type="text"/>');
+
+
 
     $(document).on("click","#labelAccueil",function(){
         console.log("page accueil");
@@ -38,7 +46,7 @@
         if(pseudo!=""){
             if(password!="") signUp(pseudo,password);
         }else{
-            alert("Pseudo or passwprd can not be empty");
+            alert("Pseudo or password can not be empty");
         }
     });
 
@@ -69,9 +77,6 @@
         $("#mmr").html("Mmr : "+oRep.mmr);
     }
 
-    <h2>Mes amis</h2>
-
-    var jLabelAmis=$("<h3>");
 
     function showAmis(oRep){
         console.log(oRep);
@@ -80,12 +85,30 @@
 
     }
 
+    $(document).on("click","#labelProfil",function(){
+        console.log("page Profil");
+        showProfil();
+        getStatistiques(showStatistique);
+        getAmis()
+
+    });
+
 
     $(document).on("click","#labelSalon",function(){
         console.log("page salon");
         showSalon();
 
     });
+
+    $(document).on("click","#btnReadyStart",function(){
+        console.log("page jeu");
+        showJeu();
+
+    });
+
+
+
+
 
 </script>
 
@@ -165,8 +188,8 @@
         <h1>Salon</h1>
         <div id="salleSalon">
             <div class="tableBlock">
-                <div id="chaise11" class="chaise"></div>
-                <div id="table1" class="table"></div>
+                <div id="chaise11" class="chaise">12313</div>
+                <div id="table1" class="table">ready</div>
                 <div id="chaise12" class="chaise"></div>
             </div>
             <div class="tableBlock">
@@ -225,9 +248,40 @@
 </div>
 
 <div id="jeu">
+
     <div id="chessBoardBlock">
         <div id="chessBoard">
-            <img src="ressources/classBoard.png"/>
+            <body>
+            <div class="box" id="box">
+                <div class="chess_left">
+                    <canvas id="chess">对不起，您的浏览器不支持HTML5，请升级浏览器至IE9、firefox或者谷歌浏览器！</canvas>
+                    <div>
+                        <div class="bn_box" id="bnBox">
+                            <input type="button" name="offensivePlay" id="superPlay" value="start" />
+
+                            <input type="button" name="regret" id="regretBn" value="悔棋" />
+                            <input type="button" name="billBn" id="billBn" value="棋谱" class="bn_box" />
+                            <input type="button" name="stypeBn" id="stypeBn" value="change style" />
+                        </div>
+                    </div>
+                </div>
+                <div class="chess_right" id="chessRight">
+                    <select name="billList" id="billList">
+                    </select>
+                    <ol id="billBox" class="bill_box">
+                    </ol>
+                </div>
+                <div id="moveInfo" class="move_info"> </div>
+            </div>
+            <script src="js_test/common.js"></script>
+            <script src="js_test/play.js"></script>
+            <script src="js_test/jquery-3.5.1.min.js"></script>
+
+
+            <div style="text-align:center;clear:both">
+                <p>适用浏览器：360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. 不支持IE8及以下浏览器。</p>
+            </div>
+            </body>
         </div>
 
         <div class="profilBoard">

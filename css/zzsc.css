@@ -179,6 +179,7 @@ body {
 	border-radius: 50px;
 	margin: 10px;
 	background: lightgray;
+	color: white;
 }
 
 .table{
@@ -186,6 +187,8 @@ body {
 	height: 120px;
 	border :1px solid black;
 	background-color: saddlebrown;
+	text-align: center;
+	vertical-align: middle;
 }
 #chaise11, #chaise21,#chaise31,#chaise41{
 	position: absolute;

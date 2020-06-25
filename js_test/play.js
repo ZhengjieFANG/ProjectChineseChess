@@ -413,10 +413,10 @@ play.getClickMan = function (e){
 
 play.showWin = function (my){
 	play.isPlay = false;
-	if (my===1){
-		alert("¹§Ï²Äã£¬ÄãÓ®ÁË£¡");
+	if (my==play.myUser){
+		alert("congratulations, u win£¡");
 	}else{
-		alert("ºÜÒÅº¶£¬ÄãÊäÁË£¡");
+		alert("what a pity, u loss£¡");
 	}
 }
 

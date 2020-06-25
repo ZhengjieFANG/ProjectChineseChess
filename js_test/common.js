@@ -75,7 +75,7 @@ window.onload = function(){
 	})
 
 	com.get("superPlay").addEventListener("click", function(e) {
-		if (confirm("确认开始大师级对弈？")){
+		if (confirm("confirm start？")){
 			play.isPlay=true ;	
 			com.get("chessRight").style.display = "none";
 			com.get("moveInfo").style.display = "block";
@@ -84,7 +84,7 @@ window.onload = function(){
 
 			play.init();
 			com.show();
-			play.setIdPartie("0b527ad35a7983fa5c9abdf31825c3cb");
+			play.setIdPartie(hash);
 			setInterval(play.refresh,1000);
 			// play.checkMyUser("b238c13e822536cad3ac57a2280fbf45");
 		}
