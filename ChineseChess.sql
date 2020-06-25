@@ -19,6 +19,11 @@ SET time_zone = "+00:00";
 --
 -- Database: `ChineseChess`
 --
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tab;
+DROP TABLE IF EXISTS amitie;
+DROP TABLE IF EXISTS partie;
+DROP TABLE IF EXISTS chat;
 
 
 -- --------------------------------------------------------
@@ -98,6 +103,7 @@ CREATE TABLE `partie` (
   `idUser1` int(11) NOT NULL COMMENT 'idUser 1 commence le coup',
   `idUser2` int(11) NOT NULL COMMENT 'idUser 2',
   `etatPartie` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'etat de partie',
+  `pace` JSON DEFAULT NULL COMMENT 'pace du match',
   PRIMARY KEY (`id`),
   FOREIGN KEY (idTable) REFERENCES tab(id),
   FOREIGN KEY (idUser1) REFERENCES users(id),
