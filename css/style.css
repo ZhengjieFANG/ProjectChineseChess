@@ -1,45 +1,149 @@
-.header {
+#header {
     height:70px;
-    background-color: darkred;
+    background-color:darkred;
 }
 
 #logo {
-    display:inline;
-    float:left;
+    float: left;
+    display: inline;
 }
 
-.header img{
-    height:60px;
-    margin-right:10px;
+#logo img{
+    height:70px;
+    width: auto;
+    margin-right:20px;
 }
 
-.header .soutitre{
-    position: relative;
+
+#header .soutitre{
+    float: left;
     display: inline-block;
-    margin: 0px;
-    width: 160px;
+    width: 135px;
+    height:70px;
+    text-align:center;
+    line-height: 70px;
+    font-size: 20px;
+    color: azure;
+}
+
+#header .soutitre:hover{
+    background-color: maroon;
+}
+
+
+#header #chercherAmis{
+    float:right;
+    margin-right: 20px;
+    display: inline-block;
     height:70px;
     text-align:center;
     line-height: 70px;
 }
 
-.header .soutitre:hover{
-    background-color: maroon;
+#salonBlock {
+    float: left;
+    width: 69%;
+    height: 640px;
+    border :1px solid black;
+    padding:20px;
+    margin:15px 25px 15px 15px;
 }
 
-a:link{
-
-    color: #f7f7fa;
-
+#amiListBlock{
+    float: left;
+    width: 19%;
+    border :1px solid black;
+    padding-bottom:10px;
+    padding-top: 10px;
+    padding-left: 35px;
+    margin:15px;
+    text-align:left;
 }
 
-#header form {
-    float:right;
+#settingBlock{
+    float: left;
+    width: 19%;
+    border :1px solid black;
+    padding-bottom:10px;
+    padding-top: 10px;
+    padding-left: 35px;
+    margin:15px;
+    text-align:left;
+    white-space:nowrap;
 }
 
-#header input {
-    float:left;
+.tableBlock{
+    float: left;
+    position: relative;
+    height: 240px;
+    width: 42%;
+    margin:10px 35px 30px 35px;
+    text-align:center;
 }
+
+.chaise{
+    width: 40px;
+    height: 40px;
+    border :1px solid gray;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    margin: 10px;
+    background: lightgray;
+}
+
+.table{
+    width: 200px;
+    height: 120px;
+    border :1px solid black;
+    background-color: saddlebrown;
+}
+#chaise11, #chaise21,#chaise31,#chaise41{
+    position: absolute;
+    left: 170px;
+}
+
+#table1,#table2,#table3,#table4{
+    position: absolute;
+    left: 105px;
+    top:60px;
+}
+
+#chaise12, #chaise22,#chaise32,#chaise42{
+    position: absolute;
+    left: 170px;
+    top:180px;
+}
+
+#chessBoardBlock {
+    float: left;
+    width: 59%;
+    height: 640px;
+    border :1px solid black;
+    padding:20px;
+    margin:15px 25px 15px 15px;
+}
+
+#chatBlock{
+    float: left;
+    width: 19%;
+    border :1px solid black;
+    padding-bottom:10px;
+    padding-top: 10px;
+    padding-left: 35px;
+    margin:15px;
+    text-align:left;
+}
+
+.profilBlock{
+    float: left;
+    position: relative;
+    height: 240px;
+    width: 42%;
+    margin:10px 35px 30px 35px;
+    text-align:center;
+}
+
 
 #pied {
     bottom:5px;left:5px;right:5px;
@@ -48,11 +152,6 @@ a:link{
     margin:10px;
 }
 
-#corps {
-    border :1px solid black;
-    padding:20px;
-    margin:10px;
-}
 
 #titre {
     border :1px solid black;
