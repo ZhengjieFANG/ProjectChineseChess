@@ -11,7 +11,6 @@ function signIn(pseudo,password) {
 	$.ajax({
 		type: "GET",
 		url: URL_BASE+"/authenticate.php",
-		//headers: {"debug-data":true},
 		data: {"pseudo":pseudo,"password":password},
 		success: function(oRep){
 			console.log("signIn success");
@@ -19,6 +18,10 @@ function signIn(pseudo,password) {
             hash = oRep.hash;
 			etatPage=oRep.etatPage;
 			showAccueil();
+		},
+		error:function(oRep){
+			console.log("signIn failed");
+			alert(oRep.message);
 		},
 		dataType: "json"
 	});
@@ -28,7 +31,6 @@ function signUp(pseudo,password) {
     $.ajax({
         type: "GET",
 		url: URL_BASE+"/authenticate.php",
-        //headers: {"debug-data":true},
         data: {"pseudo":pseudo,"password":password,"enregistrer":"1"},
         success: function(oRep){
 			console.log("signUp success");
@@ -38,6 +40,10 @@ function signUp(pseudo,password) {
             alert("Sing up success");
             showAccueil();
         },
+		error:function(){
+			console.log("signUp failed");
+			alert(oRep.message);
+		},
         dataType: "json"
     });
 }
@@ -51,31 +57,30 @@ function changerEtatPage(etatPage) {
 			console.log(oRep);
 			etatPage=oRep.etatPage;
 		},
-		dataType: "json"
-	});
-}
-
-
-function getStatistiques(){
-	$.ajax({
-		type: "GET",
-		url: apiRoot + "/profil.php",
-        data: {"hash":hash},
-		success: function(oRep){
+		error:function(oRep){
 			console.log(oRep);
 		},
 		dataType: "json"
 	});
 }
 
-function getAmis(){
+
+function getStatistiques(showStatistique){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/users",
+		url: apiRoot + "/profil.php",
+        data: {"hash":hash},
+		success: showStatistique(oRep),
+		dataType: "json"
+	});
+}
+
+function getAmis(showAmis){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/amis.php",
 		data: {"hash":hash},
-		success: function(oRep){
-		    console.log(oRep);
-		},
+		success: showAmis(oRep),
 		dataType: "json"
 	});
 }

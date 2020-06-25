@@ -43,8 +43,8 @@
     });
 
     $(document).on("click","#btnSeConnecter",function(){
-        var pseudo=inputPseudo.val();
-        var password=inputPassword.val();
+        var pseudo=$("#pseudo").val();
+        var password=$("#password").val();
         console.log("pseudo: "+pseudo+", password "+password);
 
         if(pseudo!=="" ){
@@ -57,7 +57,29 @@
     $(document).on("click","#labelProfil",function(){
         console.log("page Profil");
         showProfil();
+        getStatistiques(showStatistique);
+        getAmis()
+
     });
+
+    function showStatistique(oRep){
+        console.log(oRep);
+        $("#pseudoLabel").html(oRep.pseudo);
+        $("#userId").html("ID : "+oRep.id);
+        $("#mmr").html("Mmr : "+oRep.mmr);
+    }
+
+    <h2>Mes amis</h2>
+
+    var jLabelAmis=$("<h3>");
+
+    function showAmis(oRep){
+        console.log(oRep);
+        var tabPseudoAmis=oRep.amis;
+
+
+    }
+
 
     $(document).on("click","#labelSalon",function(){
         console.log("page salon");
@@ -234,9 +256,9 @@
 
 <div id="profil">
     <div id="statistiqueBlock">
-        <h1>FANG Zhengjie</h1>
-        <h3>Mmr : 320894 </h3>
-        <h3>Classment: 1071 </h3>
+        <h1 id="pseudoLabel">FANG Zhengjie</h1>
+        <h3 id="userId"> ID: 1071 </h3>
+        <h3 id="mmr">Mmr : 320894 </h3>
     </div>
     <div id="amisBlock">
         <h2>Mes amis</h2>
