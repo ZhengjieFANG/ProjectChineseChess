@@ -19,10 +19,6 @@ function signIn(pseudo,password) {
 			etatPage=oRep.etatPage;
 			showAccueil();
 		},
-		error:function(oRep){
-			console.log("signIn failed");
-			alert(oRep.message);
-		},
 		dataType: "json"
 	});
 }
@@ -40,47 +36,74 @@ function signUp(pseudo,password) {
             alert("Sing up success");
             showAccueil();
         },
-		error:function(){
-			console.log("signUp failed");
-			alert(oRep.message);
-		},
         dataType: "json"
     });
 }
 
-function changerEtatPage(etatPage) {
+function changerEtatPage(etat) {
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/etat.php",
-		data: {"hash":hash,"etatPage":etatPage},
+		url: URL_BASE + "/etat.php",
+		data: {"hash":hash,"etatPage":etat},
 		success: function(oRep){
 			console.log(oRep);
 			etatPage=oRep.etatPage;
 		},
-		error:function(oRep){
+		dataType: "json"
+	});
+}
+
+
+function getStatistiques(){
+	$.ajax({
+		type: "GET",
+		url: URL_BASE + "/profil.php",
+        data: {"hash":hash},
+		success: function(oRep){
 			console.log(oRep);
+			$("#pseudoLabel").html(oRep.pseudo);
+			$("#userId").html("ID : "+oRep.id);
+			$("#mmr").html("Mmr : "+oRep.mmr);
 		},
 		dataType: "json"
 	});
 }
 
-
-function getStatistiques(showStatistique){
+function getAmisInProfil(){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/profil.php",
-        data: {"hash":hash},
-		success: showStatistique(oRep),
+		url: URL_BASE + "/amis.php",
+		data: {"hash":hash},
+		success: function(oRep){
+			console.log(oRep);
+			$("#amisBlock").html("");
+			$("#amisBlock").append(jTireAmisBlock);
+			var tabPseudoAmis=oRep.amis;
+			for(var i=0;i<tabPseudoAmis.length;i++){
+				var jLabelAmisClone=jPeusoAmis.clone(true)
+					.html(tabPseudoAmis[i])
+				$("#amisBlock").append(jLabelAmisClone);
+			}
+		},
 		dataType: "json"
 	});
 }
 
-function getAmis(showAmis){
+function getAmisInSalon(){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/amis.php",
+		url: URL_BASE + "/amis.php",
 		data: {"hash":hash},
-		success: showAmis(oRep),
+		success: function(oRep){
+			console.log(oRep);
+			$("#amiListBlock").html("<h3>Amis List</h3>");
+			var tabPseudoAmis=oRep.amis;
+			for(var i=0;i<tabPseudoAmis.length;i++){
+				var jLabelAmisClone=jPeusoAmis.clone(true)
+					.html(tabPseudoAmis[i])
+				$("#amiListBlock").append(jLabelAmisClone);
+			}
+		},
 		dataType: "json"
 	});
 }
@@ -88,7 +111,7 @@ function getAmis(showAmis){
 function getEtatTable(idTable){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/salon.php",
+		url: URL_BASE + "/salon.php",
         data: {"idTable":idTable},
         success: function(oRep){
 			console.log(oRep);
@@ -100,7 +123,7 @@ function getEtatTable(idTable){
 function sitTable(idTable,position){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/salon.php",
+		url: URL_BASE + "/salon.php",
 		data: {"hash":hash,"idTable":idTable,"position":position},
 		success: function(oRep){
             console.log(oRep);
@@ -113,7 +136,7 @@ function assisterPartie(idTable){
 
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/salon.php",
+		url: URL_BASE + "/salon.php",
         data: {"hash":hash,"idTable":idTable},
 		success: function(oRep){
 		    console.log(oRep);
@@ -125,7 +148,7 @@ function assisterPartie(idTable){
 function inviterAmi(idAmi,idTable){
 	$.ajax({
 		type: "GET",
-		url: apiRoot + "/salon.php",
+		url: URL_BASE + "/salon.php",
         data: {"hash":hash,"idTable":idTable,"idAmi":idAmi},
 		success: function(oRep){
 		    console.log(oRep);
@@ -135,13 +158,14 @@ function inviterAmi(idAmi,idTable){
 }
 
 
-function ajouterAmi(idAmi,idTable){
+function ajouterAmi(pseudoAmi){
     $.ajax({
         type: "GET",
-        url: apiRoot + "/salon.php",
-        data: {"hash":hash,"idAmi":idAmi,"idTable":idTable},
+        url: URL_BASE + "/amis.php",
+        data: {"hash":hash,"pseudoAmi":pseudoAmi},
         success: function(oRep){
             console.log(oRep);
+            alert("Ajouter ami "+oRep.pseudoAmi+" success");
         },
         dataType: "json"
     });
@@ -150,7 +174,7 @@ function ajouterAmi(idAmi,idTable){
 function creerPartie(idUser1,idUser2,idTable,configuration){
     $.ajax({
         type: "GET",
-        url: apiRoot + "/salon.php",
+        url: URL_BASE + "/salon.php",
         data: {"idUser1":idUser1,"idUser2":idUser2,"idTable":idTable,"configuration":configuration},
         success: function(oRep){
             console.log(oRep);
@@ -162,7 +186,7 @@ function creerPartie(idUser1,idUser2,idTable,configuration){
 function quitterPartie(idPartie) {
     $.ajax({
         type: "GET",
-        url: apiRoot + "/salon.php",
+        url: URL_BASE + "/salon.php",
         data: {"hash": hash, "idPartie": idPartie},
         success: function (oRep) {
             console.log(oRep);
@@ -174,7 +198,7 @@ function quitterPartie(idPartie) {
 function envoyerMessage(message){
     $.ajax({
         type: "GET",
-        url: apiRoot + "/jeu.php",
+        url: URL_BASE + "/jeu.php",
         data: {"hash": hash, "message": message},
         success: function (oRep) {
             console.log(oRep);
@@ -182,6 +206,7 @@ function envoyerMessage(message){
         dataType: "json"
     });
 }
+
 
 
 

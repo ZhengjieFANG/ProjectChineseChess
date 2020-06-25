@@ -1,6 +1,6 @@
 <?php
 
-include_once ("libs/maLibSQL.pdo.php");
+include_once ("../libs/maLibSQL.pdo.php");
 
 $data=array();
 
@@ -14,7 +14,8 @@ if (isset($_GET["hash"]))
         $data=$resultat[0];
     }else{
         $data["success"]=false;
-        $data["message"]="hash not existe";
+        $data["message"]="hash not existe ";
+        echo "hash not existe ";
     }
 
 }

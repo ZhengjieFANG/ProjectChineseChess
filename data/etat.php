@@ -1,6 +1,6 @@
 <?php
 
-include_once ("libs/maLibSQL.pdo.php");
+include_once ("../libs/maLibSQL.pdo.php");
 
 $data=array();
 
@@ -16,6 +16,7 @@ if (isset($_GET["hash"])&&isset($_GET["etatPage"]))
     }else{
         $data["success"]=false;
         $data["message"]="changer etat failed";
+        echo "changer etat failed";
     }
 }
 
