@@ -27,7 +27,6 @@ function debug(s) {
 function show(refOrId,display) {
 	// affiche l'élément dont la référence ou l'id est fourni
 	// le paramètre display doit valoir block par défaut
-
 	if (typeof refOrId == "string")
 		refOrId = document.getElementById(refOrId);
 
@@ -79,10 +78,11 @@ trace("Chargement Librairie utils.js (trace, debug, html, val, show, hide) OK");
 
 function showAccueil(){
 	if(hash==null){
+		console.log("showAccueil, hash==null :"+hash);
 		show("labelAccueil","inline-block");
 		show("labelSeConnecter","inline-block");
 		hide("labelProfil");
-		hide("labelChat");
+		hide("labelSalon");
 		hide("labelDeconnecter");
 		hide("labelQuitter");
 		hide("chercherAmis");
@@ -92,10 +92,11 @@ function showAccueil(){
 		hide("salon");
 		hide("jeu");
 	}else{
+		console.log("showAccueil, hash :"+hash);
 		show("labelAccueil","inline-block");
 		hide("labelSeConnecter");
 		show("labelProfil","inline-block");
-		show("labelChat","inline-block");
+		show("labelSalon","inline-block");
 		show("labelDeconnecter","inline-block");
 		hide("labelQuitter");
 		show("chercherAmis","inline-block");
@@ -111,7 +112,7 @@ function showConnextion(){
 	show("labelAccueil","inline-block");
 	show("labelSeConnecter","inline-block");
 	hide("labelProfil");
-	hide("labelChat");
+	hide("labelSalon");
 	hide("labelDeconnecter");
 	hide("labelQuitter");
 	hide("chercherAmis");
@@ -126,7 +127,7 @@ function showProfil(){
 	show("labelAccueil","inline-block");
 	hide("labelSeConnecter");
 	show("labelProfil","inline-block");
-	show("labelChat","inline-block");
+	show("labelSalon","inline-block");
 	show("labelDeconnecter","inline-block");
 	hide("labelQuitter");
 	show("chercherAmis","inline-block");
@@ -141,7 +142,7 @@ function showSalon(){
 	show("labelAccueil","inline-block");
 	hide("labelSeConnecter");
 	show("labelProfil","inline-block");
-	show("labelChat","inline-block");
+	show("labelSalon","inline-block");
 	show("labelDeconnecter","inline-block");
 	hide("labelQuitter");
 	show("chercherAmis","inline-block");
@@ -156,7 +157,7 @@ function showJeu(){
 	hide("labelAccueil");
 	hide("labelSeConnecter");
 	hide("labelProfil");
-	hide("labelChat");
+	hide("labelSalon");
 	hide("labelDeconnecter");
 	show("labelQuitter","inline-block");
 	hide("chercherAmis");

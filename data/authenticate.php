@@ -3,43 +3,43 @@
 include_once ("libs/maLibSQL.pdo.php");
 
 $data=array();
-$data["suggestions"]=array();
-$data["recherche"]="";
+$data["hash"]="";
 
-if (isset($_GET["debutNom"]))
+if (isset($_GET["pseudo"])&&isset($_GET["password"]))
 {
-    $cherche=$_GET["debutNom"];
-    $data["recherche"]=$cherche;
-
-    if(isset($_GET["critere"])) $critere=$_GET["critere"];
-    else $critere=false;
-
-    $SQL="SELECT * FROM etudiants WHERE";
-    switch($critere){
-        case "nom":
-            $SQL.=" nom LIKE '$cherche%'";
-            break;
-
-        case "prenom":
-            $SQL.=" prenom LIKE '$cherche%'";
-            break;
-
-        default:
-            $SQL.=" prenom LIKE '$cherche%'"; //LIKE表示不精确搜索，%表示后面什么字符都可以
-            $SQL.=" OR nom LIKE '$cherche%'";
+    echo "Hello";
+    $pseudo=$_GET["pseudo"];
+    $password=$_GET["password"];
+    if(isset($_GET["enregistrer"])){
+        $SQL="INSERT INTO users ('psudo','passe','etatPage','hash') VALUES ('$pseudo','$password',0,md5($pseudo)) ";
+        if(SQLInsert($SQL)){
+            $data["success"]=true;
+            $data["psudo"]=$pseudo;
+            $data["password"]=$password;
+            $data["hash"]=md5($pseudo);
+            $data["etatPage"]=0;
+        }else{
+            $data["success"]=false;
+        }
+    }else{
+        $SQL="SELECT hash FROM users WHERE pseudo='  $pseudo' AND passe='$password'";
+        $hash=SQLGetChamp($SQL);
+        if($hash){
+            $data["success"]=true;
+            $data["psudo"]=$pseudo;
+            $data["password"]=$password;
+            $data["hash"]=$hash;
+            $data["etatPage"]=0;
+            $SQL="UPDATE users SET etatPage =0 WHERE hash='$hash'";
+            SQLUpdate($SQL);
+        }else{
+            $data["success"]=false;
+        }
     }
-
-
-    //print_r(parcoursRs(SQLSelect($SQL)));
-    $data["suggestions"]=parcoursRs(SQLSelect($SQL));
-
-
 
 }
 
-
 echo json_encode($data);
-
 
 
 ?>

@@ -1,33 +1,24 @@
-<script src="../js_test/jquery-3.5.1.min.js"></script>
-<script>
 
 var URL_BASE = "../data";
-var hash = "cd25fbf78a71133cd1b4c1b6472acd96";
-var partie = null;
-var idArticle=1174;
-//{"id":"4361","contenu":"text modife - test","ordre":"3"}
+var hash = null;
+var etatPage=null;
 
 
 
-$(document).ready(function(){
-	//authenticate(getUsers);
-	//authenticate(getArticles);
-	getParagraphes();
-	//authenticate(postArticle);
-	//postArticle();  
-	//putArticle(11,"T3");
-	//deleteArticle(1190);
-});
 
 function signIn(pseudo,password) {
+	console.log("signIn");
 	$.ajax({
 		type: "GET",
 		url: URL_BASE+"/authenticate.php",
 		//headers: {"debug-data":true},
-		data: {"user":pseudo,"password":password},
+		data: {"pseudo":pseudo,"password":password},
 		success: function(oRep){
+			console.log("signIn success");
             console.log(oRep);
             hash = oRep.hash;
+			etatPage=oRep.etatPage;
+			showAccueil();
 		},
 		dataType: "json"
 	});
@@ -36,15 +27,32 @@ function signIn(pseudo,password) {
 function signUp(pseudo,password) {
     $.ajax({
         type: "GET",
-        url: URL_BASE+"/authenticate.php",
+		url: URL_BASE+"/authenticate.php",
         //headers: {"debug-data":true},
-        data: {"user":pseudo,"password":password,"enregistrer":"1"},
+        data: {"pseudo":pseudo,"password":password,"enregistrer":"1"},
         success: function(oRep){
+			console.log("signUp success");
             console.log(oRep);
             hash = oRep.hash;
+			etatPage=oRep.etatPage;
+            alert("Sing up success");
+            showAccueil();
         },
         dataType: "json"
     });
+}
+
+function changerEtatPage(etatPage) {
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/etat.php",
+		data: {"hash":hash,"etatPage":etatPage},
+		success: function(oRep){
+			console.log(oRep);
+			etatPage=oRep.etatPage;
+		},
+		dataType: "json"
+	});
 }
 
 
@@ -141,20 +149,6 @@ function creerPartie(idUser1,idUser2,idTable,configuration){
         data: {"idUser1":idUser1,"idUser2":idUser2,"idTable":idTable,"configuration":configuration},
         success: function(oRep){
             console.log(oRep);
-            function(e) {
-                if (confirm("commence le jeu?")){
-                    play.isPlay=true ;
-                    com.get("chessRight").style.display = "none";
-                    com.get("moveInfo").style.display = "block";
-                    com.get("moveInfo").innerHTML="";
-                    // play.depth = 4;
-                    play.setIdPartie();
-                    play.init();
-                    //play.checkMyUser();
-                    play.checkMyUser("b238c13e822536cad3ac57a2280fbf45");
-                    setInterval(play.refresh,1000);
-                }
-            }
         },
         dataType: "json"
     });
@@ -186,4 +180,3 @@ function envoyerMessage(message){
 
 
 
-</script>
