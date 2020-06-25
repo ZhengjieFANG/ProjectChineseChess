@@ -4,25 +4,24 @@ var play = play||{};
 
 play.init = function (){
 	
-	play.my				=	1;				//玩家方
-	play.map 			=	com.arr2Clone (com.initMap);		//初始化棋盘
-	play.nowManKey		=	false;			//现在要操作的棋子
-	play.pace 			=	[];				//记录每一步
-	play.isPlay 		=	true ;			//是否能走棋
+	play.my				=	1;				//valeur 1 -1 1 -1, quand play.my=play.myUser, le joueur peut bouger
+	play.map 			=	com.arr2Clone (com.initMap);		//initialiser echiquier
+	play.nowManKey		=	false;			//la pièce en train d être manipulé
+	play.pace 			=	[];				//enregistre chaque coup
+	play.isPlay 		=	true ;			//possible à bouger une pièce?
 	play.mans 			=	com.mans;
 	play.bylaw 			= 	com.bylaw;
 	play.show 			= 	com.show;
 	play.showPane 		= 	com.showPane;
-	play.isOffensive	=	true;			//是否先手
-	play.depth			=	play.depth || 3;				//搜索深度
+	// play.isOffensive	=	true;			//iniative
+	// play.depth			=	play.depth || 3;				//depth de recherche AI
 	
-	play.isFoul			=	false;	//是否犯规长将
+	play.isFoul			=	false;	//Perpetual check
 
-	play.idPartie		=	false;
-	play.idUser 		=   false;
-	play.myUser			=   false;
+	play.idPartie		=	false;	//getMax(partie.id)
+	play.idUser 		=   false;	//hash => idUser
+	play.myUser			=   false;  //1 ou -1
 
-	  //
 	
 	
 	
@@ -99,56 +98,16 @@ play.init = function (){
 
 //悔棋
 play.regret = function (){
-	var map  = com.arr2Clone(com.initMap);
-	//初始化所有棋子
-	for (var i=0; i<map.length; i++){
-		for (var n=0; n<map[i].length; n++){
-			var key = map[i][n];
-			if (key){
-				com.mans[key].x=n;
-				com.mans[key].y=i;
-				com.mans[key].isShow = true;
-			}
-		}
-	}
-	var pace= play.pace;
-	pace.pop();
-	pace.pop();
-	console.log(pace);
-	
-	for (var i=0; i<pace.length; i++){
-		var p= pace[i].split("")
-		var x = parseInt(p[0], 10);
-		var y = parseInt(p[1], 10);
-		var newX = parseInt(p[2], 10);
-		var newY = parseInt(p[3], 10);
-		var key=map[y][x];
-		//try{
-	 
-		var cMan=map[newY][newX];
-		if (cMan) com.mans[map[newY][newX]].isShow = false;
-		com.mans[key].x = newX;
-		com.mans[key].y = newY;
-		map[newY][newX] = key;
-		delete map[y][x];
-		if (i==pace.length-1){
-			com.showPane(newX ,newY,x,y)	
-		}
-		//} catch (e){
-		//	com.show()
-		//	z([key,p,pace,map])
-			
-		//	}
-	}
-	play.map = map;
-	play.my=1;
-	play.isPlay=true;
-	com.show();
+	play.pace.pop();
+	play.sendMove();
+	play.pace.pop();
+	play.sendMove();
+	console.log(play.pace);
 }
 
 
 
-//点击棋盘事件
+//event -- click sur echiquier
 play.clickCanvas = function (e){
 	if (!play.isPlay) return false;
 	var key = play.getClickMan(e);
@@ -166,9 +125,12 @@ play.clickCanvas = function (e){
 }
 
 //点击棋子，两种情况，选中或者吃子
+// cliquer sur une pièce => 2 cas :
+// 1. choose
+// 2. eat
 play.clickMan = function (key,x,y){
 	var man = com.mans[key];
-	//吃子
+	//mange
 	if (play.nowManKey&&play.nowManKey != key && man.my != com.mans[play.nowManKey ].my){
 		//man为被吃掉的棋子
 		if (play.indexOfPs(com.mans[play.nowManKey].ps,[x,y])){
@@ -189,11 +151,7 @@ play.clickMan = function (key,x,y){
 			com.show()
 
 			play.sendMove();
-			// console.log(play.my);
 
-			// com.get("clickAudio").play();
-
-			//setTimeout("play.AIPlay()",500);
 			//改成玩家2操作
 
 			if (key == "j0") play.showWin (-1);
@@ -201,7 +159,7 @@ play.clickMan = function (key,x,y){
 		}
 	// 选中棋子
 	}else{
-		// if (man.my===1){
+		 if ((man.my==play.myUser) && (play.my ==play.myUser)) {
 			if (com.mans[play.nowManKey]) com.mans[play.nowManKey].alpha = 1 ;
 			man.alpha = 0.6;
 			com.pane.isShow = false;
@@ -211,11 +169,11 @@ play.clickMan = function (key,x,y){
 			com.show();
 			//com.get("selectAudio").start(0);
 			// com.get("selectAudio").play();
-		// }
+		 }
 	}
 }
 
-//点击着点
+//cliquer sur un point => pour bouger
 play.clickPoint = function (x,y){
 	var key=play.nowManKey;
 	var man=com.mans[key];
@@ -302,6 +260,7 @@ play.getPartie = function(hash){
 //fonction qui permet de replace le map sachant les paces
 play.place = function(pace){
 	var map  = com.arr2Clone(com.initMap);
+	play.my=1;
 	for (var i=0; i<pace.length; i++){
 		var p= pace[i].split("")
 		var x = parseInt(p[0], 10);
@@ -316,13 +275,13 @@ play.place = function(pace){
 		com.mans[key].y = newY;
 		map[newY][newX] = key;
 		delete map[y][x];
+		play.my=-play.my
 		if (i==pace.length-1){
 			com.showPane(newX ,newY,x,y)
 		}
 
 	}
 	play.map = map;
-	play.my=1;
 	play.isPlay=true;
 	com.show();
 
@@ -373,7 +332,7 @@ play.AIPlay = function (){
 	}else {
 		play.AIclickPoint(pace[2],pace[3]);	
 	}
-	com.get("clickAudio").play();
+	// com.get("clickAudio").play();
 	
 	
 }
@@ -454,12 +413,21 @@ play.getClickMan = function (e){
 
 play.showWin = function (my){
 	play.isPlay = false;
-	if (my===1){
-		alert("恭喜你，你赢了！");
+	if (my==play.myUser){
+		alert("congratulations, u win！");
 	}else{
-		alert("很遗憾，你输了！");
+		alert("what a pity, u loss！");
 	}
 }
+
+
+
+
+
+
+//idPartie CheckUser = false
+// play.js:474 initialiser idPartie = 3
+// play.js:492 player est =wrong hash
 
 
 //en appuyant sur le btn start, on cree une partie.
@@ -473,21 +441,26 @@ play.setIdPartie = function(hash){
 		success: function(oRep){
 			console.log("initialiser idPartie = " + oRep);
 			play.idPartie=oRep;
+			play.checkMyUser(hash);
+
 		}
 	});
-}
 
+	return play.idPartie;
+}
 
 //permet de savoir on est User 1 ou User 2 de la partie
 play.checkMyUser = function(hash){
 
+	// idPartie=play.setIdPartie();
 	idPartie=play.idPartie;
 	console.log("idPartie CheckUser = " + idPartie);
+
 	$.ajax({
 		type: "GET",
 		url: "./data"+"/checkMyUser.php",
 		//data: {"idPartie":idPartie,"hash":"0b527ad35a7983fa5c9abdf31825c3cb"},
-		data: {"idPartie":3,"hash":hash},
+		data: {"idPartie":"3","hash":hash},
 		success: function(oRep){
 			console.log("player est =" + oRep);
 			play.myUser = oRep;
