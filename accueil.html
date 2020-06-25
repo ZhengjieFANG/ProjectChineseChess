@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ChieneseChess</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+
+<script src="js/jquery-3.5.1.min.js" type="javascript"></script>
+<script src="js/utils.js" type="javascript"></script>
+<script>
+
+
+</script>
+
+
+<body>
+
+<div id="header">
+    <div id="logo">
+        <img src="ressources/logo.jpg"/>
+    </div>
+    <div id="seConnecter" class="soutitre">Se Connecter</div>
+    <div id="enregister" class="soutitre">Enregister</div>
+    <div id="accueil" class="soutitre">Accueil</div>
+    <div id="profil" class="soutitre">Profil</div>
+    <div id="chat" class="soutitre">Chat</div>
+    <div id="seDeconnecter" class="soutitre">Déconnecter</div>
+    <div id="quitter" class="soutitre">Quitter</div>
+    <div id="chercherAmis">
+        <input id="amiId" type="text" name="amiId" value="Entrer User ID">
+        <input type="button" value="Ajouter">
+    </div>
+
+</div>
+
+<!--<div id="regle">-->
+<!--    <p>-->
+<!--        象棋是中國大陸、台灣、馬來西亞、新加坡、越南、琉球地區所流行的傳統的2人對弈棋類遊戲。由於中國大陸稱西方的Chess為國際象棋，因此為作區別中國象棋；但台灣將Chess翻譯為「西洋棋」，因此象棋不需加中國二字來區別。-->
+<!--        象棋與國際象棋及圍棋並列世界三大棋類之一，類似的有朝鮮將棋、日本將棋等。象棋主要流行於全球華人、越南人及琉球人社區，是首屆世界智力運動會的正式比賽項目之一。-->
+<!--    </p>-->
+<!--</div>-->
+
+<!--<div id="connexion">-->
+<!--    <h1>Connexion</h1>-->
+<!--    <div id="formLogin">-->
+<!--        <fieldset>-->
+<!--            <label for="fname">First name:</label><br>-->
+<!--            <input type="text" id="fname" name="fname" value=""><br>-->
+<!--            <label for="lname">Last name:</label><br>-->
+<!--            <input type="text" id="lname" name="lname" value=""><br><br>-->
+<!--            <input type="submit" name="action" value="Se connecter" />-->
+<!--            <input type="submit" name="action" value="Enregisterer" />-->
+<!--        </fieldset>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div id="salon">-->
+<!--    <div id="salonBlock">-->
+<!--        <h1>Salon</h1>-->
+<!--        <div id="salleSalon">-->
+<!--            <div class="tableBlock">-->
+<!--                <div id="chaise11" class="chaise"></div>-->
+<!--                <div id="table1" class="table"></div>-->
+<!--                <div id="chaise12" class="chaise"></div>-->
+<!--            </div>-->
+<!--            <div class="tableBlock">-->
+<!--                <div id="chaise21" class="chaise"></div>-->
+<!--                <div id="table2" class="table"></div>-->
+<!--                <div id="chaise22" class="chaise"></div>-->
+<!--            </div>-->
+<!--            <div class="tableBlock">-->
+<!--                <div id="chaise31" class="chaise"></div>-->
+<!--                <div id="table3" class="table"></div>-->
+<!--                <div id="chaise32" class="chaise"></div>-->
+<!--            </div>-->
+<!--            <div class="tableBlock">-->
+<!--                <div id="chaise41" class="chaise"></div>-->
+<!--                <div id="table4" class="table"></div>-->
+<!--                <div id="chaise42" class="chaise"></div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--    <div id="amiListBlock">-->
+<!--        <h3>Amis List</h3>-->
+<!--    </div>-->
+
+<!--    <div id="settingBlock">-->
+<!--        <h3>Setting</h3>-->
+<!--        Temps par coup :-->
+<!--        <select id="tempsParCoup" name="tempsParCoup" >-->
+<!--            <option value="1">1 min</option>-->
+<!--            <option value="2">2 min</option>-->
+<!--            <option value="3">3 min</option>-->
+<!--            <option value="4">4 min</option>-->
+<!--            <option value="5">5 min</option>-->
+<!--        </select>-->
+<!--        <br>-->
+<!--        Nombre de regrette :-->
+<!--        <select id="nbRegrette" name="nbRegrette">-->
+<!--            <option value="1">1</option>-->
+<!--            <option value="2">2</option>-->
+<!--            <option value="3">3</option>-->
+<!--            <option value="4">4</option>-->
+<!--            <option value="5">5</option>-->
+<!--        </select>-->
+<!--        <br>-->
+<!--        Style échiquier :-->
+<!--        <br>-->
+<!--        <input type="radio" id="chinois" name="styleEchiquier" value="chinois">-->
+<!--        <label for="chinois">Chinois</label>-->
+<!--        <input type="radio" id="classique" name="styleEchiquier" value="classique">-->
+<!--        <label for="classique">Classique</label>-->
+<!--        <br>-->
+<!--        <button id="btnReadyStart" type="button" >Start</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="jeu">
+    <div id="chessBoardBlock">
+        <div id="chessBoard">
+            <img src="ressources/classBoard.png"/>
+        </div>
+        <input type="button" value="Start"/>
+        <input type="button" value="Regrette"/>
+    </div>
+
+    <div id="chatBlock">
+        <h3>Chat</h3>
+    </div>
+
+    <div class="profilBlock">
+        WANG Chuanrui
+        <br>
+        Coup
+        <br>
+        Match
+    </div>
+
+    <div class="profilBlock">
+        WANG Chuanrui
+        <br>
+        Coup
+        <br>
+        Match
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

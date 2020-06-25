@@ -1,0 +1,174 @@
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+
+var URL_BASE = "../data.php";
+var hash = "cd25fbf78a71133cd1b4c1b6472acd96";
+var idArticle=1174;
+//{"id":"4361","contenu":"text modife - test","ordre":"3"}
+
+
+
+$(document).ready(function(){
+	//authenticate(getUsers);
+	//authenticate(getArticles);
+	getParagraphes();
+	//authenticate(postArticle);
+	//postArticle();  
+	//putArticle(11,"T3");
+	//deleteArticle(1190);
+});
+
+function signIn(pseudo,password) {
+	$.ajax({
+		type: "GET",
+		url: URL_BASE+"/authenticate.php",
+		//headers: {"debug-data":true},
+		data: {"user":pseudo,"password":password},
+		success: function(oRep){
+            console.log(oRep);
+            hash = oRep.hash;
+		},
+		dataType: "json"
+	});
+}
+
+function signUp(pseudo,password) {
+    $.ajax({
+        type: "GET",
+        url: URL_BASE+"/authenticate.php",
+        //headers: {"debug-data":true},
+        data: {"user":pseudo,"password":password,"enregistrer":"1"},
+        success: function(oRep){
+            console.log(oRep);
+            hash = oRep.hash;
+        },
+        dataType: "json"
+    });
+}
+
+
+function getStatistiques(){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/profil.php",
+        data: {"hash":hash},
+		success: function(oRep){
+			console.log(oRep);
+		},
+		dataType: "json"
+	});
+}
+
+function getAmis(){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/users",
+		data: {"hash":hash},
+		success: function(oRep){
+		    console.log(oRep);
+		},
+		dataType: "json"
+	});
+}
+
+function getEtatTable(idTable){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/salon.php",
+        data: {"idTable":idTable},
+        success: function(oRep){
+			console.log(oRep);
+		},
+		dataType: "json"
+	});
+}
+
+function sitTable(idTable,position){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/salon.php",
+		data: {"hash":hash,"idTable":idTable,"position":position},
+		success: function(oRep){
+            console.log(oRep);
+		},
+		dataType: "json"
+	});
+}
+
+function assisterPartie(idTable){
+
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/salon.php",
+        data: {"hash":hash,"idTable":idTable},
+		success: function(oRep){
+		    console.log(oRep);
+	},
+	dataType: "json"
+	});
+}
+
+function inviterAmi(idAmi,idTable){
+	$.ajax({
+		type: "GET",
+		url: apiRoot + "/salon.php",
+        data: {"hash":hash,"idTable":idTable,"idAmi":idAmi},
+		success: function(oRep){
+		    console.log(oRep);
+	},
+	dataType: "json"
+	});
+}
+
+
+function ajouterAmi(idAmi,idTable){
+    $.ajax({
+        type: "GET",
+        url: apiRoot + "/salon.php",
+        data: {"hash":hash,"idAmi":idAmi,"idTable":idTable},
+        success: function(oRep){
+            console.log(oRep);
+        },
+        dataType: "json"
+    });
+}
+
+function creerPartie(idUser1,idUser2,idTable,configuration){
+    $.ajax({
+        type: "GET",
+        url: apiRoot + "/salon.php",
+        data: {"idUser1":idUser1,"idUser2":idUser2,"idTable":idTable,"configuration":configuration},
+        success: function(oRep){
+            console.log(oRep);
+        },
+        dataType: "json"
+    });
+}
+
+function quitterPartie(idPartie) {
+    $.ajax({
+        type: "GET",
+        url: apiRoot + "/salon.php",
+        data: {"hash": hash, "idPartie": idPartie},
+        success: function (oRep) {
+            console.log(oRep);
+        },
+        dataType: "json"
+    });
+}
+
+function envoyerMessage(message){
+    $.ajax({
+        type: "GET",
+        url: apiRoot + "/jeu.php",
+        data: {"hash": hash, "message": message},
+        success: function (oRep) {
+            console.log(oRep);
+        },
+        dataType: "json"
+    });
+}
+
+
+
+</script>
