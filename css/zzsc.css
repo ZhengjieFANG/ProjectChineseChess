@@ -43,3 +43,283 @@ body {
 .bn_box {
 	display:none
 }
+
+#header {
+	height:70px;
+	background-color:darkred;
+
+}
+
+#logo {
+	float: left;
+	display: inline;
+}
+
+#logo img{
+	height:70px;
+	width: auto;
+	margin-right:20px;
+}
+
+
+#header .soutitre{
+	float: left;
+	display: inline-block;
+	width: 135px;
+	height:70px;
+	text-align:center;
+	line-height: 70px;
+	font-size: 20px;
+	color: azure;
+}
+
+
+#header .soutitre:hover{
+	background-color: maroon;
+}
+
+
+#header #chercherAmis{
+	float:right;
+	margin-right: 20px;
+	display: inline-block;
+	height:70px;
+	text-align:center;
+	line-height: 70px;
+}
+
+#accueil div{
+	margin:0px 30px;
+}
+#accueil p{
+	margin: 30px;
+
+}
+
+#accueil img{
+	float:right;
+	margin: 20px;
+	width: 350px;
+	height: 350px;
+
+}
+
+#accueil h1{
+	margin-left: 30px;
+}
+
+#accueil h2{
+	margin-left: 30px;
+}
+#accueil h3{
+	margin-left: 30px;
+}
+
+#accueil hr{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+#connexion h1{
+	margin-left: 30px;
+}
+
+#connexion #formLogin{
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+#salonBlock {
+	float: left;
+	width: 69%;
+	height: 640px;
+	border :1px solid black;
+	padding:20px;
+	margin:15px 25px 15px 15px;
+}
+
+#amiListBlock{
+	float: left;
+	width: 19%;
+	border :1px solid black;
+	padding-bottom:10px;
+	padding-top: 10px;
+	padding-left: 35px;
+	margin:15px;
+	text-align:left;
+}
+
+#settingBlock{
+	float: left;
+	width: 19%;
+	border :1px solid black;
+	padding-bottom:10px;
+	padding-top: 10px;
+	padding-left: 35px;
+	margin:15px;
+	text-align:left;
+	white-space:nowrap;
+}
+
+.tableBlock{
+	float: left;
+	position: relative;
+	height: 240px;
+	width: 42%;
+	margin:10px 35px 30px 35px;
+	text-align:center;
+}
+
+.chaise{
+	width: 40px;
+	height: 40px;
+	border :1px solid gray;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	margin: 10px;
+	background: lightgray;
+}
+
+.table{
+	width: 200px;
+	height: 120px;
+	border :1px solid black;
+	background-color: saddlebrown;
+}
+#chaise11, #chaise21,#chaise31,#chaise41{
+	position: absolute;
+	left: 170px;
+}
+
+#table1,#table2,#table3,#table4{
+	position: absolute;
+	left: 105px;
+	top:60px;
+}
+
+#chaise12, #chaise22,#chaise32,#chaise42{
+	position: absolute;
+	left: 170px;
+	top:180px;
+}
+
+#chessBoardBlock {
+	float: left;
+	width: 67%;
+	height: 640px;
+	border :1px solid black;
+	padding:20px;
+	margin:15px 25px 15px 15px;
+}
+
+#chatBlock{
+	float: left;
+	width: 22%;
+	border :1px solid black;
+	padding-bottom:10px;
+	padding-top: 10px;
+	padding-left: 35px;
+	margin:15px;
+	text-align:left;
+}
+
+
+#chessBoard{
+	float: left;
+}
+
+.profilBoard{
+	float: left;
+	width: 160px;
+	height: 220px;
+	border: black 1px solid;
+	margin-top: 5px;
+	margin-bottom: 35px;
+	padding: 15px 20px;
+}
+
+
+#chessBoard img{
+	max-width:600px;
+	height: 550px;
+	margin-left: 100px;
+	margin-right: 120px;
+	margin-top: 5px;
+}
+
+.button {
+	background-image:url("../ressources/button.png");
+	border: none;
+	width: 130px;
+	height: 50px;
+	margin:0px 10px;
+	text-align: center;
+	display: inline-block;
+	font-size: 24px;
+}
+
+#buttonStart{
+	margin-left: 60px;
+}
+#statistiqueBlock{
+	float: left;
+	width: 60%;
+	height: 640px;
+	border :1px solid black;
+	padding:20px;
+	margin:15px 25px 15px 15px;
+}
+
+#amisBlock{
+	float: left;
+	width: 29%;
+	border :1px solid black;
+	padding-bottom:10px;
+	padding-top: 10px;
+	padding-left: 35px;
+	margin:15px;
+	text-align:left;
+}
+
+#pied {
+	bottom:5px;left:5px;right:5px;
+	border-top :1px solid black;
+	padding:20px;
+	margin:10px;
+}
+
+
+#titre {
+	border :1px solid black;
+	padding:20px;
+	margin:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

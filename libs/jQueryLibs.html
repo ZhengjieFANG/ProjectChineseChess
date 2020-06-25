@@ -3,6 +3,7 @@
 
 var URL_BASE = "../data";
 var hash = "cd25fbf78a71133cd1b4c1b6472acd96";
+var partie = null;
 var idArticle=1174;
 //{"id":"4361","contenu":"text modife - test","ordre":"3"}
 
@@ -140,6 +141,20 @@ function creerPartie(idUser1,idUser2,idTable,configuration){
         data: {"idUser1":idUser1,"idUser2":idUser2,"idTable":idTable,"configuration":configuration},
         success: function(oRep){
             console.log(oRep);
+            function(e) {
+                if (confirm("commence le jeu?")){
+                    play.isPlay=true ;
+                    com.get("chessRight").style.display = "none";
+                    com.get("moveInfo").style.display = "block";
+                    com.get("moveInfo").innerHTML="";
+                    // play.depth = 4;
+                    play.setIdPartie();
+                    play.init();
+                    //play.checkMyUser();
+                    play.checkMyUser("b238c13e822536cad3ac57a2280fbf45");
+                    setInterval(play.refresh,1000);
+                }
+            }
         },
         dataType: "json"
     });
