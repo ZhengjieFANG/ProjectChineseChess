@@ -104,6 +104,7 @@ CREATE TABLE `partie` (
   `idUser2` int(11) NOT NULL COMMENT 'idUser 2',
   `etatPartie` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'etat de partie',
   `pace` JSON DEFAULT NULL COMMENT 'pace du match',
+  `playerMy` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=>tour de User1, -1=>tour de User2',
   PRIMARY KEY (`id`),
   FOREIGN KEY (idTable) REFERENCES tab(id),
   FOREIGN KEY (idUser1) REFERENCES users(id),
