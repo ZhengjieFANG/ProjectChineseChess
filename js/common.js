@@ -73,45 +73,26 @@ window.onload = function(){
 			bill.init();
 		}
 	})
-
 	com.get("superPlay").addEventListener("click", function(e) {
-		if (confirm("confirm start？")){
+		if (confirm("确认开始大师级对弈？")){
 			play.isPlay=true ;	
 			com.get("chessRight").style.display = "none";
 			com.get("moveInfo").style.display = "block";
 			com.get("moveInfo").innerHTML="";
 			play.depth = 4;
-
 			play.init();
-			com.show();
-			play.setIdPartie(hash);
-			setInterval(play.refresh,1000);
-			// play.checkMyUser("b238c13e822536cad3ac57a2280fbf45");
 		}
-
 	})
-
-	// com.get("tyroPlay").addEventListener("click", function(e) {
-	// 	if (confirm("确认开始新手级对弈？")){
-	// 		play.isPlay=true ;
-	// 		com.get("chessRight").style.display = "none";
-	// 		com.get("moveInfo").style.display = "block";
-	// 		com.get("moveInfo").innerHTML="";
-	// 		play.depth = 3;
-	// 		play.init();
-	// 	}
-	// })
-
-	com.get("offensivePlay").addEventListener("click", function(e) {
-		play.isOffensive=true;
-		play.isPlay=true ;
-		com.get("chessRight").style.display = "none";
-		play.init();
-
-
+	com.get("tyroPlay").addEventListener("click", function(e) {
+		if (confirm("确认开始新手级对弈？")){
+			play.isPlay=true ;	
+			com.get("chessRight").style.display = "none";
+			com.get("moveInfo").style.display = "block";
+			com.get("moveInfo").innerHTML="";
+			play.depth = 3;
+			play.init();
+		}
 	})
-
-
 	
 	com.get("stypeBn").addEventListener("click", function(e) {
 		var stype =com.nowStype;
@@ -129,18 +110,16 @@ window.onload = function(){
 			if (i++>=5) clearInterval(timer);
 		},2000);
 	})
-
-	//Code pour AI à analyser les données
-
-	// com.getData("js/gambit.all.js",
-	// 	function(data){
-	// 	com.gambit=data.split(" ");
-	// 	AI.historyBill = com.gambit;
-	// })
-	// com.getData("js/store.js",
-	// 	function(data){
-	// 	com.store=data.split(" ");
-	// })
+	
+	com.getData("js/gambit.all.js",
+		function(data){
+		com.gambit=data.split(" ");
+		AI.historyBill = com.gambit;
+	})
+	com.getData("js/store.js",
+		function(data){
+		com.store=data.split(" ");
+	})
 }
 
 //载入图片
@@ -217,8 +196,7 @@ com.alert = function (obj,f,n){
 //com.alert的简写，考虑z变量名最不常用
 var z = com.alert;
 
-//get distance d'element au c?té gauche de page
-// 获取元素距离页面左侧的距离
+//获取元素距离页面左侧的距离
 com.getDomXY = function (dom){
 	var left = dom.offsetLeft;
 	var top = dom.offsetTop;
@@ -244,8 +222,7 @@ com.getCookie = function(name){
 	}
 	return false;
 }
-
-//clone 2d array
+//二维数组克隆
 com.arr2Clone = function (arr){
 	var newArr=[];
 	for (var i=0; i<arr.length ; i++){	
@@ -281,7 +258,6 @@ com.createMove = function (map,x,y,newX,newY){
 	var man = com.mans[map[y][x]];
 	h+= man.text;
 	map[newY][newX] = map[y][x];
-	console.log(map);
 	delete map[y][x];
 	if (man.my===1){
 		var mumTo=["一","二","三","四","五","六","七","八","九","十"];	

@@ -18,7 +18,7 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
             $SQL="INSERT INTO users (pseudo,passe,etatPage,hash) VALUES ('$pseudo','$password',0,md5('$pseudo')) ";
             if(SQLInsert($SQL)){
                 $data["success"]=true;
-                $data["psudo"]=$pseudo;
+                $data["pseudo"]=$pseudo;
                 $data["password"]=$password;
                 $data["hash"]=md5($pseudo);
                 $data["etatPage"]=0;
@@ -31,7 +31,7 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
         $hash=SQLGetChamp($SQL);
         if($hash){
             $data["success"]=true;
-            $data["psudo"]=$pseudo;
+            $data["pseudo"]=$pseudo;
             $data["password"]=$password;
             $data["hash"]=$hash;
             $data["etatPage"]=0;

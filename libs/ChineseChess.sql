@@ -42,7 +42,8 @@ CREATE TABLE `users` (
   `mmr` int(11) NOT NULL DEFAULT '1000' COMMENT 'indique le score de l''utilisateur',
   `couleur` varchar(10) CHARACTER SET latin1 NOT NULL DEFAULT 'black' COMMENT 'indique la couleur préférée de l''utilisateur, en anglais',
   `hash` CHAR(32) NOT NULL COMMENT 'hash code genere par md5(id)',
-   PRIMARY KEY (`id`)
+   PRIMARY KEY (`id`),
+   UNIQUE (`pseudo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -161,7 +162,7 @@ INSERT INTO `amitie` (`id`,`idAmi1`,`idAmi2`) VALUES
 --
 
 INSERT INTO `partie` (`id`,`idTable`,`idUser1`,`idUser2`,`etatPartie`) VALUES
-(1, 2, 2, 2, 0),
+(1, 2, 3, 2, 0),
 (2, 1, 3, 2, 0);
 
 --
@@ -191,13 +192,13 @@ INSERT INTO `chat` (`id`, `idPartie`, `idAuteur`, `texte`) VALUES
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clé primaire, identifiant numérique auto incrémenté', AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clé primaire, identifiant numérique auto incrémenté', AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `partie`
 --
 ALTER TABLE `partie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clé primaire, identifiant numérique auto incrémenté', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'clé primaire, identifiant numérique auto incrémenté', AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `chat`
