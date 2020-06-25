@@ -8,24 +8,40 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 
-
-<script src="js/jquery-3.5.1.min.js" type="javascript"></script>
-<script src="js/utils.js" type="javascript"></script>
+<script src="js/jquery-3.5.1.min.js" ></script>
+<script src="js/utils.js"></script>
 <script>
+    var hash=null;
+
+    $(document).ready(function(){
+        console.log("Accueil par default");
+        showAccueil();
+    });
+
+    $(document).on("click","#labelAccueil",function(){
+        console.log("page accueil");
+        showAccueil();
+    });
+
+
+    $(document).on("click","#labelSeConnecter",function(){
+        console.log("page connexion");
+        showConnextion();
+    });
+
+
 
 
 </script>
 
 
 <body>
-
 <div id="header">
     <div id="logo">
         <img src="ressources/logo.jpg"/>
     </div>
-    <div id="labelSeConnecter" class="soutitre">Se Connecter</div>
-    <div id="labelEnregister" class="soutitre">Enregister</div>
     <div id="labelAccueil" class="soutitre">Accueil</div>
+    <div id="labelSeConnecter" class="soutitre">Se Connecter</div>
     <div id="labelProfil" class="soutitre">Profil</div>
     <div id="labelChat" class="soutitre">Chat</div>
     <div id="labelDeconnecter" class="soutitre">Déconnecter</div>
@@ -34,140 +50,166 @@
         <input id="amiId" type="text" name="amiId" value="Entrer User ID">
         <input type="button" value="Ajouter">
     </div>
-
 </div>
 
-<!--<div id="accueil">-->
-<!--    <p>-->
-<!--        象棋是中國大陸、台灣、馬來西亞、新加坡、越南、琉球地區所流行的傳統的2人對弈棋類遊戲。由於中國大陸稱西方的Chess為國際象棋，因此為作區別中國象棋；但台灣將Chess翻譯為「西洋棋」，因此象棋不需加中國二字來區別。-->
-<!--        象棋與國際象棋及圍棋並列世界三大棋類之一，類似的有朝鮮將棋、日本將棋等。象棋主要流行於全球華人、越南人及琉球人社區，是首屆世界智力運動會的正式比賽項目之一。-->
-<!--    </p>-->
-<!--</div>-->
+<div id="accueil">
+    <h1>中国象棋</h1>
+    <hr/>
+    <p>
+        中国象棋是起源于中国的一种棋，属于二人对抗性游戏的一种，在中国有着悠久的历史。由于用具简单，趣味性强，成为流行极为广泛的棋艺活动。
+        中国象棋是中国棋文化，也是中华民族的文化瑰宝，它源远流长，趣味浓厚，基本规则简明易懂。
+        象棋与国际象棋及围棋并列世界三大棋类之一，类似的有朝鲜将棋、日本将棋等。象棋主要流行于全球华人、越南人及琉球人社区，是首届世界智力运动会的正式比赛项目之一。
+    </p>
+    <h3>棋盘</h3>
+    <IMG src="ressources/chessboard2.jpg" alt="象棋棋盘"/>
+    <P>棋子活动的场所，叫作“棋盘”。在方形的平面上，由九条平行的竖线和十条平行的横线相交组成，共有九十个交叉点，棋子就摆在交叉点上。中间部分，也就是棋盘的第五，第六两横线之间未画竖线的空白地带称为“河界”。两端的中间，也就是两端第四条到第六条竖线之间的正方形部位，
+        以斜交叉线构成“米”字方格的地方，叫作“九宫”（它恰好有九个交叉点）。整个棋盘以“河界”分为相等的两部分。为了比赛记录和学习棋谱方便起见，现行规则规定：按九条竖线从右至左用中文数字一至九来表示红方的每条竖线，用阿拉伯数字“1”~“9”来表示黑方的每条竖线。对弈开始之前，红黑双方应该把棋子摆放在规定的位置。任何棋子每走一步，进就写“进”，退就写“退”，如果像车一样横着走，就写“平”。</P>
+    <p>现行的中式记录方法是：9条纵线，红方从右到左用汉字“一”至“九”表示，黑方在自己的那一面从右到左用数字“1”至“9”表示。也就是说，红方的纵线“一”就是黑方的纵线“9”，以此类推。第四条纵线（或第6条纵线）和第六条纵线（或第4条纵线）称为“两肋”、“两肋线”，简称“肋”。棋盘上，划有斜交叉线而构成“米”字形方格的地方，双方各有一块，称为“九宫”，是将（帅）和士（仕）活动的区域。</p>
+    <p>直线<br/>
+        棋盘上较长的平行排列的边称为直线，共有9条，其中7条被河界隔断。用红色棋子一方的直线从右往左依次用中文数字一、二、三、四、五、六、七、八、九表示;用黑色棋于一方的直线在红方对面也从右往左依次用阿拉伯数字1、2、3、4、5、6、7、8、9表示。</p>
+    <p>横线<br/>
+        棋盘上较短的平行排列的边称为横线。横线共有10条，用红色棋子一方的横线从红方底线算起，从下往上依次用中文数字一至十表示;用黑色棋子一方的横线则从黑方底线开始，依次用阿拉伯数字1-10表示。</p>
+    <p>交叉点<br/>
+        直线与横线相交的地方称为“交叉点”。整个棋盘共有90个交叉点，棋子就摆放和活动在这些交叉点上。</p>
+    <p>河界<br/>
+        棋盘中央没有画直线的地方称为“河界”。它代表弃战双方的分界线，确定了各自的地域。</p>
+    <p>九宫<br/>
+        棋盘两端各画有斜交叉线的地方称为“九宫”。将则只能在各自“九宫”的9个交叉点上活动。</p>
+    <h3>棋子</h3>
+    <p>棋子共有三十二个，分为红、黑两组，每组共十六个，各分七种，其名称和数目如下：<br/>
+        红棋子：帅一个，车、马、炮、相、仕各两个，兵五个。<br/>
+        黑棋子：将一个，车、马、炮、象、士各两个，卒五个。</p>
+    <h3>象棋规则</h3>
+    <p>中国象棋是由两人轮流走子，在战法上遵循古代孙子兵法中的“不战而屈人之兵，善之善者也”的作战思想，以“将死”或“困毙”对方将（帅）为胜的一种二人对抗性游戏。对局时，由执红棋的一方先走，双方轮流各走一招，直至分出胜、负、和，对局即终了。在棋战中，人们可以从攻与防、虚与实、整体与局部等复杂关系的变化中提升思维能力。</p>
+    <p>行棋规定:<br/>
+        对局开始前，双方棋子在棋盘上的摆法见右图。
+        对局时，由执红棋的一方先走，双方轮流走一步。
+        轮到走棋的一方，将某个棋子从一个交叉点走到另一个交叉点，或者吃掉对方的棋子而占领其交叉点，都算走了一着。
+        双方各走一着，称为一个回合。
+        走一着棋时，如果己方棋子能够走到的位置有对方棋子存在，就可以把对方棋子吃掉而占领那个位置。
+        一方的棋子攻击对方的帅（将），并在下一着要把它吃掉，称为“照将”，或简称“将”。“照将”不必声明。被“照将”的一方必须立即“应将”，即用自己的着法去化解被“将”的状态。如果被“照将”而无法“应将”，就算被“将死”。
+    </p>
+</div>
 
-<!--<div id="connexion">-->
-<!--    <h1>Connexion</h1>-->
-<!--    <div id="formLogin">-->
-<!--        <fieldset>-->
-<!--            <label for="fname">First name:</label><br>-->
-<!--            <input type="text" id="fname" name="fname" value=""><br>-->
-<!--            <label for="lname">Last name:</label><br>-->
-<!--            <input type="text" id="lname" name="lname" value=""><br><br>-->
-<!--            <input type="submit" name="action" value="Se connecter" />-->
-<!--            <input type="submit" name="action" value="Enregisterer" />-->
-<!--        </fieldset>-->
-<!--    </div>-->
-<!--</div>-->
+<div id="connexion">
+    <h1>Connexion</h1>
+    <div id="formLogin">
+        <fieldset>
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname" value=""><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" value=""><br><br>
+            <input type="submit" name="action" value="Se connecter" />
+            <input type="submit" name="action" value="Enregisterer" />
+        </fieldset>
+    </div>
+</div>
 
-<!--<div id="salon">-->
-<!--    <div id="salonBlock">-->
-<!--        <h1>Salon</h1>-->
-<!--        <div id="salleSalon">-->
-<!--            <div class="tableBlock">-->
-<!--                <div id="chaise11" class="chaise"></div>-->
-<!--                <div id="table1" class="table"></div>-->
-<!--                <div id="chaise12" class="chaise"></div>-->
-<!--            </div>-->
-<!--            <div class="tableBlock">-->
-<!--                <div id="chaise21" class="chaise"></div>-->
-<!--                <div id="table2" class="table"></div>-->
-<!--                <div id="chaise22" class="chaise"></div>-->
-<!--            </div>-->
-<!--            <div class="tableBlock">-->
-<!--                <div id="chaise31" class="chaise"></div>-->
-<!--                <div id="table3" class="table"></div>-->
-<!--                <div id="chaise32" class="chaise"></div>-->
-<!--            </div>-->
-<!--            <div class="tableBlock">-->
-<!--                <div id="chaise41" class="chaise"></div>-->
-<!--                <div id="table4" class="table"></div>-->
-<!--                <div id="chaise42" class="chaise"></div>-->
-<!--            </div>-->
+<div id="salon">
+    <div id="salonBlock">
+        <h1>Salon</h1>
+        <div id="salleSalon">
+            <div class="tableBlock">
+                <div id="chaise11" class="chaise"></div>
+                <div id="table1" class="table"></div>
+                <div id="chaise12" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise21" class="chaise"></div>
+                <div id="table2" class="table"></div>
+                <div id="chaise22" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise31" class="chaise"></div>
+                <div id="table3" class="table"></div>
+                <div id="chaise32" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise41" class="chaise"></div>
+                <div id="table4" class="table"></div>
+                <div id="chaise42" class="chaise"></div>
+            </div>
 
-<!--        </div>-->
+        </div>
 
-<!--    </div>-->
+    </div>
 
-<!--    <div id="amiListBlock">-->
-<!--        <h3>Amis List</h3>-->
-<!--    </div>-->
+    <div id="amiListBlock">
+        <h3>Amis List</h3>
+    </div>
 
-<!--    <div id="settingBlock">-->
-<!--        <h3>Setting</h3>-->
-<!--        Temps par coup :-->
-<!--        <select id="tempsParCoup" name="tempsParCoup" >-->
-<!--            <option value="1">1 min</option>-->
-<!--            <option value="2">2 min</option>-->
-<!--            <option value="3">3 min</option>-->
-<!--            <option value="4">4 min</option>-->
-<!--            <option value="5">5 min</option>-->
-<!--        </select>-->
-<!--        <br>-->
-<!--        Nombre de regrette :-->
-<!--        <select id="nbRegrette" name="nbRegrette">-->
-<!--            <option value="1">1</option>-->
-<!--            <option value="2">2</option>-->
-<!--            <option value="3">3</option>-->
-<!--            <option value="4">4</option>-->
-<!--            <option value="5">5</option>-->
-<!--        </select>-->
-<!--        <br>-->
-<!--        Style échiquier :-->
-<!--        <br>-->
-<!--        <input type="radio" id="chinois" name="styleEchiquier" value="chinois">-->
-<!--        <label for="chinois">Chinois</label>-->
-<!--        <input type="radio" id="classique" name="styleEchiquier" value="classique">-->
-<!--        <label for="classique">Classique</label>-->
-<!--        <br>-->
-<!--        <button id="btnReadyStart" type="button" >Start</button>-->
-<!--    </div>-->
-<!--</div>-->
+    <div id="settingBlock">
+        <h3>Setting</h3>
+        Temps par coup :
+        <select id="tempsParCoup" name="tempsParCoup" >
+            <option value="1">1 min</option>
+            <option value="2">2 min</option>
+            <option value="3">3 min</option>
+            <option value="4">4 min</option>
+            <option value="5">5 min</option>
+        </select>
+        <br>
+        Nombre de regrette :
+        <select id="nbRegrette" name="nbRegrette">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <br>
+        Style échiquier :
+        <br>
+        <input type="radio" id="chinois" name="styleEchiquier" value="chinois">
+        <label for="chinois">Chinois</label>
+        <input type="radio" id="classique" name="styleEchiquier" value="classique">
+        <label for="classique">Classique</label>
+        <br>
+        <button id="btnReadyStart" type="button" >Start</button>
+    </div>
+</div>
 
-<!--<div id="jeu">-->
-<!--    <div id="chessBoardBlock">-->
-<!--        <div id="chessBoard">-->
-<!--            <img src="ressources/classBoard.png"/>-->
-<!--        </div>-->
+<div id="jeu">
+    <div id="chessBoardBlock">
+        <div id="chessBoard">
+            <img src="ressources/classBoard.png"/>
+        </div>
 
-<!--        <div class="profilBoard">-->
-<!--            WANG Chuanrui-->
-<!--            <br>-->
-<!--            Coup-->
-<!--            <br>-->
-<!--            Match-->
-<!--        </div>-->
+        <div class="profilBoard">
+            WANG Chuanrui
+            <br>
+            Coup
+            <br>
+            Match
+        </div>
 
-<!--        <div class="profilBoard">-->
-<!--            WANG Chuanrui-->
-<!--            <br>-->
-<!--            Coup-->
-<!--            <br>-->
-<!--            Match-->
-<!--        </div>-->
-<!--        <input id="buttonStart" class="button" type="button" value="Start"/>-->
-<!--        <input id="buttonRegrette" class="button" type="button" value="Regrette"/>-->
-<!--    </div>-->
+        <div class="profilBoard">
+            WANG Chuanrui
+            <br>
+            Coup
+            <br>
+            Match
+        </div>
+        <input id="buttonStart" class="button" type="button" value="Start"/>
+        <input id="buttonRegrette" class="button" type="button" value="Regrette"/>
+    </div>
 
-<!--    <div id="chatBlock">-->
-<!--        <h3>Chat</h3>-->
-<!--    </div>-->
+    <div id="chatBlock">
+        <h3>Chat</h3>
+    </div>
+</div>
 
 <div id="profil">
     <div id="statistiqueBlock">
         <h1>FANG Zhengjie</h1>
         <h3>Mmr : 320894 </h3>
         <h3>Classment: 1071 </h3>
-
     </div>
-
     <div id="amisBlock">
         <h2>Mes amis</h2>
     </div>
 
-
-
 </div>
-
-
 
 </body>
 </html>
