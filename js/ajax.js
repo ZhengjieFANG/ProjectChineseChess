@@ -19,7 +19,7 @@ function signIn(pseudo,password) {
             console.log(oRep);
             hash = oRep.hash;
 			etatPage=oRep.etatPage;
-			// pseudoGlo = oRep.pseudo;
+			pseudoGlo = oRep.pseudo;
 			showAccueil();
 		},
 		dataType: "json"
