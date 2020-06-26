@@ -206,7 +206,7 @@
 }
 
 .button {
-    background-image:url("../ressources/button.png");
+    background-image:url("../img/ressources/button.png");
     border: none;
     width: 130px;
     height: 50px;
@@ -253,7 +253,6 @@
     margin:10px;
 }
 
-@charset "gb2312";
 
 
 .box {

@@ -19,15 +19,15 @@
     $(document).ready(function(){
         console.log("Accueil par default");
         showAccueil();
-        setInterval(getEtatTable,500,1);
-        setInterval(getEtatTable,500,2);
-        setInterval(getEtatTable,500,3);
-        setInterval(getEtatTable,500,4);
+        // setInterval(getEtatTable,500,1);
+        // setInterval(getEtatTable,500,2);
+        // setInterval(getEtatTable,500,3);
+        // setInterval(getEtatTable,500,4);
         // setInterval(getEtatTable(4),1000);
     });
 
 
-
+    //ACCUEIL
     $(document).on("click","#labelAccueil",function(){
         console.log("page accueil");
         showAccueil();
@@ -35,8 +35,7 @@
             changerEtatPage(0);
         }
     });
-
-
+    //CONNEXION
     $(document).on("click","#labelSeConnecter",function(){
         console.log("page connexion");
         showConnextion();
@@ -64,7 +63,7 @@
         }
     });
 
-
+    //AJOUTER AMIS
     $(document).on("click","#btnAjouterAmi",function(){
         console.log("click sur btnAjouterAmi");
         var pseudoAmi=$("#TextAmiId").val();
@@ -73,6 +72,17 @@
         $("#TextAmiId").val("");
     });
 
+    var jTireAmisBlock=$("<h2>").html("Mes amis");
+    var jPeusoAmis=$("<h3>");
+    var jLabelPeusoAmis = $("<strong>");
+    var jBarAmis=$("<div>");
+    var jBtnInviterAmi=$("<input type='button'>")
+        .val("Inviter")
+        .click(function () {
+
+        });
+
+    //PROFIL
     $(document).on("click","#labelProfil",function(){
         console.log("page Profil");
         showProfil();
@@ -81,9 +91,8 @@
         changerEtatPage(0);
     });
 
-    var jPeusoAmis = $("<h3>");
-    var jTireAmisBlock=$("<h2>").html("Mes amis");
 
+    //SALON
     $(document).on("click","#labelSalon",function(){
         console.log("page salon");
         showSalon();
@@ -91,7 +100,7 @@
         changerEtatPage(1);
     });
 
-
+    //DECONNECTER
     $(document).on("click","#labelDeconnecter",function(){
         console.log("Deconnecter");
         hash=null;
@@ -128,14 +137,13 @@
 
 
 
-
 </script>
 
 
 <body>
 <div id="header">
     <div id="logo">
-        <img src="ressources/logo.jpg"/>
+        <img src="img/ressources/logo.jpg"/>
     </div>
     <div id="labelAccueil" class="soutitre">Accueil</div>
     <div id="labelSeConnecter" class="soutitre">Se Connecter</div>
@@ -158,7 +166,7 @@
         象棋与国际象棋及围棋并列世界三大棋类之一，类似的有朝鲜将棋、日本将棋等。象棋主要流行于全球华人、越南人及琉球人社区，是首届世界智力运动会的正式比赛项目之一。
     </p>
     <h3>棋盘</h3>
-    <img src="ressources/chessboard2.jpg" alt="象棋棋盘"/>
+    <img src="img/ressources/chessboard2.jpg" alt="象棋棋盘"/>
     <P>棋子活动的场所，叫作“棋盘”。在方形的平面上，由九条平行的竖线和十条平行的横线相交组成，共有九十个交叉点，棋子就摆在交叉点上。中间部分，也就是棋盘的第五，第六两横线之间未画竖线的空白地带称为“河界”。两端的中间，也就是两端第四条到第六条竖线之间的正方形部位，
         以斜交叉线构成“米”字方格的地方，叫作“九宫”（它恰好有九个交叉点）。整个棋盘以“河界”分为相等的两部分。为了比赛记录和学习棋谱方便起见，现行规则规定：按九条竖线从右至左用中文数字一至九来表示红方的每条竖线，用阿拉伯数字“1”~“9”来表示黑方的每条竖线。对弈开始之前，红黑双方应该把棋子摆放在规定的位置。任何棋子每走一步，进就写“进”，退就写“退”，如果像车一样横着走，就写“平”。</P>
     <p>现行的中式记录方法是：9条纵线，红方从右到左用汉字“一”至“九”表示，黑方在自己的那一面从右到左用数字“1”至“9”表示。也就是说，红方的纵线“一”就是黑方的纵线“9”，以此类推。第四条纵线（或第6条纵线）和第六条纵线（或第4条纵线）称为“两肋”、“两肋线”，简称“肋”。棋盘上，划有斜交叉线而构成“米”字形方格的地方，双方各有一块，称为“九宫”，是将（帅）和士（仕）活动的区域。</p>

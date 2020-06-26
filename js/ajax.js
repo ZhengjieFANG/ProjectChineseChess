@@ -98,12 +98,17 @@ function getAmisInSalon(){
 		data: {"hash":hash},
 		success: function(oRep){
 			console.log(oRep);
+			console.log("getAmisInSalon");
 			$("#amiListBlock").html("<h3>Amis List</h3>");
 			var tabPseudoAmis=oRep.amis;
 			for(var i=0;i<tabPseudoAmis.length;i++){
-				var jLabelAmisClone=jPeusoAmis.clone(true)
-					.html(tabPseudoAmis[i])
-				$("#amiListBlock").append(jLabelAmisClone);
+				var jLabelAmisClone=jLabelPeusoAmis.clone(true)
+					.html(tabPseudoAmis[i]);
+				var jBtnInviterAmiClone=jBtnInviterAmi.clone(true);
+				var jBarAmisClone=jBarAmis.clone(true);
+				jBarAmisClone.append(jLabelAmisClone)
+					.append(jBtnInviterAmiClone);
+				$("#amiListBlock").append(jBarAmisClone);
 			}
 		},
 		dataType: "json"
