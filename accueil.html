@@ -18,11 +18,12 @@
 
     $(document).ready(function(){
         console.log("Accueil par default");
-        showJeu();
-        setInterval(getEtatTable(1),1000);
-        setInterval(getEtatTable(2),1000);
-        setInterval(getEtatTable(3),1000);
-        setInterval(getEtatTable(4),1000);
+        showAccueil();
+        setInterval(getEtatTable,500,1);
+        setInterval(getEtatTable,500,2);
+        setInterval(getEtatTable,500,3);
+        setInterval(getEtatTable,500,4);
+        // setInterval(getEtatTable(4),1000);
     });
 
 
@@ -99,9 +100,28 @@
     });
 
 
+    $(document).on("click",".chaise",function(){
+        console.log("sit down");
+        var str = $(this).attr('id');
+        console.log(str);
+        var idTable = str.substring(6, 7);
+        var idSit = str.substring(7,8);
+        sitTable(idTable,idSit);
+    });
+
     $(document).on("click","#btnReadyStart",function(){
         console.log("page jeu");
-        showJeu();
+        if ($(this).text()=="Start") showJeu();
+        if ($(this).text()=="Ready"){
+            $(this).text("U are ready!");
+            setReady();
+        }
+        // console.log(pseudoGlo);
+        // var idSit = $(".chaise[text='wang']").val();
+        // console.log(idSit);
+        setReady();
+        // if u are in sit1, u are ready and sit2 is ready
+        // return can start
 
     });
 

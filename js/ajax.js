@@ -2,6 +2,7 @@
 var URL_BASE = "./data";
 var hash = null;
 var etatPage=null;
+var pseudoGlo = null;
 
 
 
@@ -17,6 +18,7 @@ function signIn(pseudo,password) {
             console.log(oRep);
             hash = oRep.hash;
 			etatPage=oRep.etatPage;
+			pseudoGlo = oRep.pseudo;
 			showAccueil();
 		},
 		dataType: "json"
@@ -119,18 +121,29 @@ function getEtatTable(idTable){
 			if(oRep.sit1!="0"){
 				var nomSit = "chaise" + idTable + "1";
 				$("#"+nomSit).css("background-color","black");
-				$("#"+nomSit).text(oRep.sit1);
+				$("#"+nomSit).text(oRep.pseudo1);
+			}else{
+				var nomSit = "chaise" + idTable + "1";
+				$("#"+nomSit).css("background-color","lightgray");
+				$("#"+nomSit).text("");
 			}
-			if(oRep.sit2!="0"){
+
+			if(oRep.sit2!="0") {
 				var nomSit = "chaise" + idTable + "2";
-				$("#"+nomSit).css("background-color","black");
-				$("#"+nomSit).text(oRep.sit2);
+				$("#" + nomSit).css("background-color", "black");
+				$("#" + nomSit).text(oRep.pseudo2);
+			}else{
+				var nomSit = "chaise" + idTable + "2";
+				$("#"+nomSit).css("background-color","lightgray");
+				$("#"+nomSit).text("");
 			}
+
 			var nomTable = "table" + idTable;
 			if (oRep.onReady == 0) $("#"+nomTable).text("table incomplet");
 			if (oRep.onReady == 1) $("#"+nomTable).text("table not ready");
 			if (oRep.onReady == 2) $("#"+nomTable).text("table ready");
 			// var etatTable
+			// setTimeout(getEtatTable(idTable),100000);
 		},
 		dataType: "json"
 	});
@@ -146,6 +159,20 @@ function sitTable(idTable,position){
 		},
 		dataType: "json"
 	});
+}
+
+function setReady(){
+	var idSit = $(".chaise[text=pseudoGlo]").attr('id');
+	console.log(idSit);
+	// $.ajax({
+	// 	type: "GET",
+	// 	url: URL_BASE + "/salon.php",
+	// 	data: {"hash":hash,"setReady":1},
+	// 	success: function(oRep){
+	// 		console.log(oRep);
+	// 	},
+	// 	dataType: "json"
+	// });
 }
 
 function assisterPartie(idTable){
