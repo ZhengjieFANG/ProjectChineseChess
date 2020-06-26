@@ -13,6 +13,7 @@ if (isset($_GET["hash"])&&isset($_GET["etatPage"]))
         $data["success"]=true;
         $data["hash"]=$hash;
         $data["etatPage"]=$etatPage;
+    }else{
         $data["success"]=false;
         $data["message"]="changer etat failed";
         echo "changer etat failed";
