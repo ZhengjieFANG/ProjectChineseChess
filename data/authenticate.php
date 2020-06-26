@@ -13,6 +13,7 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
         if(SQLGetChamp($SQL)){
             $data["success"]=false;
             $data["message"]="This pseudo is already used by others";
+            echo "This pseudo is already used by others ";
         }else{
             $SQL="INSERT INTO users (pseudo,passe,etatPage,hash) VALUES ('$pseudo','$password',0,md5('$pseudo')) ";
             if(SQLInsert($SQL)){
@@ -39,6 +40,7 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
         }else{
             $data["success"]=false;
             $data["message"]="Pseudo or password incorrect";
+            echo "Pseudo or password incorrect ";
         }
     }
 

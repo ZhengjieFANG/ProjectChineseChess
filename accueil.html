@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--<!DOCTYPE html-->
-<!--        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"-->
-<!--        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>ChineseChess</title>
@@ -24,13 +24,14 @@
         // setInterval(getEtatTable(4),1000);
     });
 
-    var jTaPseudo=$('<input type="text"/>');
-
 
 
     $(document).on("click","#labelAccueil",function(){
         console.log("page accueil");
         showAccueil();
+        if(hash!=null){
+            changerEtatPage(0);
+        }
     });
 
 
@@ -38,7 +39,6 @@
         console.log("page connexion");
         showConnextion();
     });
-
 
     $(document).on("click","#btnEnregistrer",function(){
         var pseudo=$("#pseudo").val();
@@ -55,7 +55,6 @@
         var pseudo=$("#pseudo").val();
         var password=$("#password").val();
         console.log("pseudo: "+pseudo+", password "+password);
-
         if(pseudo!=="" ){
             if(password!="") signIn(pseudo,password);
         }else{
@@ -63,43 +62,53 @@
         }
     });
 
-    $(document).on("click","#labelProfil",function(){
-        console.log("page Profil");
-        showProfil();
-        getStatistiques(showStatistique);
-        getAmis()
 
+    $(document).on("click","#btnAjouterAmi",function(){
+        console.log("click sur btnAjouterAmi");
+        var pseudoAmi=$("#TextAmiId").val();
+        console.log(pseudoAmi);
+        ajouterAmi(pseudoAmi);
+        $("#TextAmiId").val("");
     });
-
-    function showStatistique(oRep){
-        console.log(oRep);
-        $("#pseudoLabel").html(oRep.pseudo);
-        $("#userId").html("ID : "+oRep.id);
-        $("#mmr").html("Mmr : "+oRep.mmr);
-    }
-
-
-    function showAmis(oRep){
-        console.log(oRep);
-        var tabPseudoAmis=oRep.amis;
-
-
-    }
 
     $(document).on("click","#labelProfil",function(){
         console.log("page Profil");
         showProfil();
-        getStatistiques(showStatistique);
-        getAmis()
-
+        getStatistiques();
+        getAmisInProfil();
+        changerEtatPage(0);
     });
 
+    var jPeusoAmis = $("<h3>");
+    var jTireAmisBlock=$("<h2>").html("Mes amis");
 
     $(document).on("click","#labelSalon",function(){
         console.log("page salon");
         showSalon();
+        getAmisInSalon();
+        changerEtatPage(1);
+    });
+
+
+    $(document).on("click","#labelDeconnecter",function(){
+        console.log("Deconnecter");
+        hash=null;
+        showAccueil();
+        changerEtatPage(-1);
+    });
+
+
+
+    $(document).on("click","#labelProfil",function(){
+        console.log("page Profil");
+        showProfil();
+        getStatistiques(showStatistique);
+        getAmis()
 
     });
+
+
+
 
     $(document).on("click",".chaise",function(){
         console.log("sit down");
@@ -145,8 +154,8 @@
     <div id="labelDeconnecter" class="soutitre">Déconnecter</div>
     <div id="labelQuitter" class="soutitre">Quitter</div>
     <div id="chercherAmis">
-        <input id="amiId" type="text" name="amiId" value="Entrer User ID">
-        <input type="button" value="Ajouter">
+        <input id="TextAmiId" type="text" name="amiId" value="Entrer User Pseudo">
+        <input id="btnAjouterAmi" type="button" value="Ajouter">
     </div>
 </div>
 
@@ -196,7 +205,7 @@
             <label for="pseudo">Pseudo:</label><br>
             <input type="text" id="pseudo" value=""><br>
             <label for="password">Password:</label><br>
-            <input type="text" id="password" value=""><br><br>
+            <input type="password" id="password" value=""><br><br>
             <input id="btnSeConnecter" type="submit"  value="Se connecter" />
             <input id="btnEnregistrer" type="submit" value="Enregistrer" />
         </fieldset>
@@ -234,6 +243,7 @@
 
     <div id="amiListBlock">
         <h3>Amis List</h3>
+
     </div>
 
     <div id="settingBlock">
@@ -335,7 +345,7 @@
         <h3 id="mmr">Mmr : 320894 </h3>
     </div>
     <div id="amisBlock">
-        <h2>Mes amis</h2>
+
     </div>
 
 </div>
