@@ -65,14 +65,14 @@ window.onload = function(){
 	com.bg.show();
 	com.get("bnBox").style.display = "block";
 	//play.init();
-	com.get("billBn").addEventListener("click", function(e) {
-		if (confirm("是否结束对局，开始棋局研究？")){
-			com.init();
-			com.get("chessRight").style.display = "block";
-			com.get("moveInfo").style.display = "none";
-			bill.init();
-		}
-	})
+	// com.get("billBn").addEventListener("click", function(e) {
+	// 	if (confirm("是否结束对局，开始棋局研究？")){
+	// 		com.init();
+	// 		com.get("chessRight").style.display = "block";
+	// 		com.get("moveInfo").style.display = "none";
+	// 		bill.init();
+	// 	}
+	// })
 
 	com.get("superPlay").addEventListener("click", function(e) {
 		if (confirm("confirm start？")){
@@ -102,14 +102,14 @@ window.onload = function(){
 	// 	}
 	// })
 
-	com.get("offensivePlay").addEventListener("click", function(e) {
-		play.isOffensive=true;
-		play.isPlay=true ;
-		com.get("chessRight").style.display = "none";
-		play.init();
-
-
-	})
+	// com.get("offensivePlay").addEventListener("click", function(e) {
+	// 	play.isOffensive=true;
+	// 	play.isPlay=true ;
+	// 	com.get("chessRight").style.display = "none";
+	// 	play.init();
+	//
+	//
+	// })
 
 
 	

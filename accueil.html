@@ -21,7 +21,7 @@
         setInterval(getEtatTable,500,2);
         setInterval(getEtatTable,500,3);
         setInterval(getEtatTable,500,4);
-        // setInterval(getEtatTable(4),1000);
+        setInterval(getEtatTable(4),1000);
     });
 
 
@@ -54,7 +54,7 @@
     $(document).on("click","#btnSeConnecter",function(){
         var pseudo=$("#pseudo").val();
         var password=$("#password").val();
-        console.log("pseudo: "+pseudo+", password "+password);
+        console.log("pseudo: "+pseudo+", password :"+password);
         if(pseudo!=="" ){
             if(password!="") signIn(pseudo,password);
         }else{
@@ -122,16 +122,16 @@
     $(document).on("click","#btnReadyStart",function(){
         console.log("page jeu");
         if ($(this).text()=="Start") showJeu();
-        if ($(this).text()=="Ready"){
-            $(this).text("U are ready!");
-            setReady();
-        }
-        // console.log(pseudoGlo);
-        // var idSit = $(".chaise[text='wang']").val();
-        // console.log(idSit);
-        setReady();
-        // if u are in sit1, u are ready and sit2 is ready
-        // return can start
+        // if ($(this).text()=="Ready"){
+        //     $(this).text("U are ready!");
+        //     setReady();
+        // }
+        // // console.log(pseudoGlo);
+        // // var idSit = $(".chaise[text='wang']").val();
+        // // console.log(idSit);
+        // setReady();
+        // // if u are in sit1, u are ready and sit2 is ready
+        // // return can start
 
     });
 

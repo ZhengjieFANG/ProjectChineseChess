@@ -3,7 +3,8 @@ var URL_BASE = "./data";
 var hash = null;
 var etatPage=null;
 var pseudoGlo = null;
-
+var chaiseTable = {"chaise11":"0","chaise12":"0","chaise21":"0","chaise22":"0","chaise31":"0","chaise32":"0",
+	"chaise41":"0","chaise42":"0"};
 
 
 
@@ -18,7 +19,7 @@ function signIn(pseudo,password) {
             console.log(oRep);
             hash = oRep.hash;
 			etatPage=oRep.etatPage;
-			pseudoGlo = oRep.pseudo;
+			// pseudoGlo = oRep.pseudo;
 			showAccueil();
 		},
 		dataType: "json"
@@ -117,25 +118,29 @@ function getEtatTable(idTable){
         data: {"idTable":idTable,"getEtatTable" : "1"},
         success: function(oRep){
 			//{"sit1":"0","sit2":"0","sit1Ready":"0","sit2Ready":"0","onReady":"0"}
-			console.log(oRep);
+			// console.log(oRep);
 			if(oRep.sit1!="0"){
 				var nomSit = "chaise" + idTable + "1";
 				$("#"+nomSit).css("background-color","black");
 				$("#"+nomSit).text(oRep.pseudo1);
+				chaiseTable[nomSit]=oRep.pseudo1;
 			}else{
 				var nomSit = "chaise" + idTable + "1";
 				$("#"+nomSit).css("background-color","lightgray");
 				$("#"+nomSit).text("");
+				chaiseTable[nomSit]="0";
 			}
 
 			if(oRep.sit2!="0") {
 				var nomSit = "chaise" + idTable + "2";
 				$("#" + nomSit).css("background-color", "black");
 				$("#" + nomSit).text(oRep.pseudo2);
+				chaiseTable[nomSit]=oRep.pseudo2;
 			}else{
 				var nomSit = "chaise" + idTable + "2";
 				$("#"+nomSit).css("background-color","lightgray");
 				$("#"+nomSit).text("");
+				chaiseTable[nomSit]="0";
 			}
 
 			var nomTable = "table" + idTable;
