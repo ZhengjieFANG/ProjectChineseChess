@@ -8,12 +8,12 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
 {
     $pseudo=$_GET["pseudo"];
     $password=$_GET["password"];
+    //Sign up
     if(isset($_GET["enregistrer"])){
         $SQL="SELECT hash FROM users WHERE pseudo='$pseudo'";
         if(SQLGetChamp($SQL)){
             $data["success"]=false;
             $data["message"]="This pseudo is already used by others";
-            echo "This pseudo is already used by others ";
         }else{
             $SQL="INSERT INTO users (pseudo,passe,etatPage,hash) VALUES ('$pseudo','$password',0,md5('$pseudo')) ";
             if(SQLInsert($SQL)){
@@ -27,6 +27,7 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
             }
         }
     }else{
+        //Sign in
         $SQL="SELECT hash FROM users WHERE pseudo='$pseudo' AND passe='$password'";
         $hash=SQLGetChamp($SQL);
         if($hash){
@@ -40,7 +41,6 @@ if (isset($_GET["pseudo"])&&isset($_GET["password"]))
         }else{
             $data["success"]=false;
             $data["message"]="Pseudo or password incorrect";
-            echo "Pseudo or password incorrect ";
         }
     }
 

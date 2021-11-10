@@ -33,7 +33,6 @@ if (isset($_GET["hash"])&& (!isset($_GET["pseudoAmi"])))
     }else{
         $data["success"]=false;
         $data["message"]="hash not existe";
-        echo "hash not existe";
     }
 
 }
@@ -60,13 +59,11 @@ if (isset($_GET["hash"])&& isset($_GET["pseudoAmi"])){
             }
         }else{
             $data["success"]=false;
-            $data["message"]="ajouter ami failed";
-            echo "ajouter ami failed";
+            $data["message"]="You are already friends";
         }
     }else{
         $data["success"]=false;
-        $data["message"]="ajouter ami failed";
-        echo "ajouter ami failed";
+        $data["message"]="This user does not existe";
     }
 }
 

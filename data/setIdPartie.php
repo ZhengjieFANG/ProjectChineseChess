@@ -3,13 +3,13 @@
 include_once("../libs/maLibSQL.pdo.php");
 
 
-    $SQL = "SELECT MAX(id) FROM partie";
-    //die($SQL);
-    echo SQLGetChamp($SQL);
-    return SQLGetChamp($SQL);
+$SQL = "SELECT MAX(id) FROM partie";
+//die($SQL);
+echo SQLGetChamp($SQL);
+return SQLGetChamp($SQL);
 
 
-    die("");
+die("");
 
 
 ?>

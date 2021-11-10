@@ -1,4 +1,3 @@
-/*! 一叶孤舟 | qq:28701884 | 欢迎指教 */
 
 var play = play||{};
 
@@ -6,15 +5,14 @@ play.init = function (){
 	
 	play.my				=	1;				//valeur 1 -1 1 -1, quand play.my=play.myUser, le joueur peut bouger
 	play.map 			=	com.arr2Clone (com.initMap);		//initialiser echiquier
-	play.nowManKey		=	false;			//la pièce en train d être manipulé
+	play.nowManKey		=	false;			//la piece en train d etre manipule
 	play.pace 			=	[];				//enregistre chaque coup
-	play.isPlay 		=	true ;			//possible à bouger une pièce?
+	play.isPlay 		=	true ;			//possible de bouger une piece?
 	play.mans 			=	com.mans;
 	play.bylaw 			= 	com.bylaw;
 	play.show 			= 	com.show;
 	play.showPane 		= 	com.showPane;
-	// play.isOffensive	=	true;			//iniative
-	// play.depth			=	play.depth || 3;				//depth de recherche AI
+
 	
 	play.isFoul			=	false;	//Perpetual check
 
@@ -25,9 +23,9 @@ play.init = function (){
 	
 	
 	
-	com.pane.isShow		=	 false;			//隐藏方块
+	com.pane.isShow		=	 false;			//cacher le border carre
 	
-	//初始化棋子
+	//initialiser les pieces
 	for (var i=0; i<play.map.length; i++){
 		for (var n=0; n<play.map[i].length; n++){
 			var key = play.map[i][n];
@@ -40,63 +38,20 @@ play.init = function (){
 	}
 	play.show();
 	
-	//绑定点击事件
+	//addEventListener onclick
 	com.canvas.addEventListener("click",play.clickCanvas)
-	//clearInterval(play.timer);
-	//com.get("autoPlay").addEventListener("click", function(e) {
-		//clearInterval(play.timer);
-		//play.timer = setInterval("play.AIPlay()",1000);
-	//	play.AIPlay()
-	//})
 
-	// com.get("offensivePlay").addEventListener("click", function(e) {
-	// 	play.isOffensive=true;
-	// 	play.isPlay=true ;
-	// 	com.get("chessRight").style.display = "none";
-	// 	play.init();
-	//
-	//
-	// })
-	//
-	// com.get("defensivePlay").addEventListener("click", function(e) {
-	// 	play.isOffensive=false;
-	// 	play.isPlay=true ;
-	// 	com.get("chessRight").style.display = "none";
-	// 	play.init();
-	//
-	// 	play.isPlay=true ;
-	// 	com.get("chessRight").style.display = "none";
-	// 	com.get("moveInfo").style.display = "block";
-	// 	com.get("moveInfo").innerHTML="";
-	// 	play.depth = 3;
-	// 	play.init();
-	// })
 
-	
 	
 	com.get("regretBn").addEventListener("click", function(e) {
 		play.regret();
 	})
-	
-	/*
-	var initTime = new Date().getTime();
-	for (var i=0; i<=100000; i++){
-		
-		var h=""
-		var h=play.map.join();
-		//for (var n in play.mans){
-		//	if (play.mans[n].show) h+=play.mans[n].key+play.mans[n].x+play.mans[n].y
-		//}
-	}
-	var nowTime= new Date().getTime();
-	z([h,nowTime-initTime])
-	*/
-	
+
 }
 
 
 
-//悔棋
+//regrette
 play.regret = function (){
 	play.pace.pop();
 	play.sendMove();
@@ -121,18 +76,18 @@ play.clickCanvas = function (e){
 	}else {
 		play.clickPoint(x,y);	
 	}
-	play.isFoul = play.checkFoul();//检测是不是长将
+	play.isFoul = play.checkFoul();//
 }
 
-//点击棋子，两种情况，选中或者吃子
-// cliquer sur une pièce => 2 cas :
+
+// cliquer sur une piece => 2 cas :
 // 1. choose
 // 2. eat
 play.clickMan = function (key,x,y){
 	var man = com.mans[key];
 	//mange
 	if (play.nowManKey&&play.nowManKey != key && man.my != com.mans[play.nowManKey ].my){
-		//man为被吃掉的棋子
+		//man est la piece mang茅
 		if (play.indexOfPs(com.mans[play.nowManKey].ps,[x,y])){
 			man.isShow = false;
 			var pace=com.mans[play.nowManKey].x+""+com.mans[play.nowManKey].y
@@ -150,21 +105,21 @@ play.clickMan = function (key,x,y){
 			com.dot.dots = [];
 			com.show()
 
+			//sendMove et switch player
 			play.sendMove();
 
-			//改成玩家2操作
 
 			if (key == "j0") play.showWin (-1);
 			if (key == "J0") play.showWin (1);
 		}
-	// 选中棋子
+	// pick piece
 	}else{
 		 if ((man.my==play.myUser) && (play.my ==play.myUser)) {
 			if (com.mans[play.nowManKey]) com.mans[play.nowManKey].alpha = 1 ;
 			man.alpha = 0.6;
 			com.pane.isShow = false;
 			play.nowManKey = key;
-			com.mans[key].ps = com.mans[key].bl(); //获得所有能着点
+			com.mans[key].ps = com.mans[key].bl();
 			com.dot.dots = com.mans[key].ps
 			com.show();
 			//com.get("selectAudio").start(0);
@@ -202,7 +157,7 @@ play.clickPoint = function (x,y){
 			// com.get("clickAudio").play();
 			//setTimeout("play.AIPlay()",500);
 		}else{
-			//alert("不能这么走哦！")	
+			//alert("Invalid Move")
 		}
 	}
 	
@@ -229,9 +184,6 @@ play.sendMove = function(x,y,newX,newY){
 	// console.log(JSON.stringify(play.pace));    //afficher le dernier coup
 }
 
-// play.getHash = function(){
-//
-// }
 
 //fonction qui permet d'occuper toutes les paces et puis initialiser le map avec ces paces
 play.getPartie = function(hash){
@@ -243,7 +195,7 @@ play.getPartie = function(hash){
 		// data: {"hash":hash},
 		data: {"idPartie":idPartie},
 		success: function(oRep){
-			console.log(oRep);
+			//console.log(oRep);
 			play.pace=oRep;
 			// console.log(play.pace);
 		},
@@ -254,10 +206,7 @@ play.getPartie = function(hash){
 }
 
 
-
-
-
-//fonction qui permet de replace le map sachant les paces
+//fonction qui permet de replacer les pieces sur le map sachant les paces
 play.place = function(pace){
 	var map  = com.arr2Clone(com.initMap);
 	play.my=1;
@@ -270,7 +219,19 @@ play.place = function(pace){
 		var key=map[y][x];
 
 		var cMan=map[newY][newX];
-		if (cMan) com.mans[map[newY][newX]].isShow = false;
+		if (cMan) {
+			com.mans[map[newY][newX]].isShow = false;
+			 // if (cMan) {
+			 // 	if (cMan == "j0") {
+			 // 		play.showWin (-1);
+				// 	return true;
+				// }
+				// if (cMan == "J0") {
+				// 	play.showWin (1);
+				// 	return true;
+				// }
+			 // }
+		}
 		com.mans[key].x = newX;
 		com.mans[key].y = newY;
 		map[newY][newX] = key;
@@ -294,50 +255,8 @@ play.refresh = function(){
 	play.place(play.pace);
 }
 
-// play.getMove = function(url,my,callback){
-// 		var XMLHttpRequestObject=false;
-// 		if(window.XMLHttpRequest)
-// 			XMLHttpRequestObject=new XMLHttpRequest();
-// 		if(XMLHttpRequestObject){
-// 			XMLHttpRequestObject.open("GET",url);
-// 			XMLHttpRequestObject.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-// 			XMLHttpRequestObject.onreadystatechange=function (){
-// 				if(XMLHttpRequestObject.readyState==4 && XMLHttpRequestObject.status==200){
-// 					callback(XMLHttpRequestObject.responseText);
-// 					//return XMLHttpRequestObject.responseText;
-// 				}
-// 			}
-// 			XMLHttpRequestObject.send(null);
-// 			play.pace=rep.pace;
-// 			pace=play.pace[play.pace.length - 1];
 
-// }
-
-//Ai自动走棋
-play.AIPlay = function (){
-	//return
-	play.my = -1 ;
-	var pace=AI.init(play.pace.join(""))
-	if (!pace) {
-		play.showWin (1);
-		return ;
-	}
-	play.pace.push(pace.join(""));
-	var key=play.map[pace[1]][pace[0]]
-		play.nowManKey = key;
-	
-	var key=play.map[pace[3]][pace[2]];
-	if (key){
-		play.AIclickMan(key,pace[2],pace[3]);	
-	}else {
-		play.AIclickPoint(pace[2],pace[3]);	
-	}
-	// com.get("clickAudio").play();
-	
-	
-}
-
-//检查是否长将
+//Perpetual check
 play.checkFoul = function(){
 	var p=play.pace;
 	var len=parseInt(p.length,10);
@@ -348,19 +267,19 @@ play.checkFoul = function(){
 }
 
 
-
+//on n utilise pas cette fonction
 play.AIclickMan = function (key,x,y){
 	var man = com.mans[key];
-	//吃子
+	//eat piece
 	man.isShow = false;
 	delete play.map[com.mans[play.nowManKey].y][com.mans[play.nowManKey].x];
 	play.map[y][x] = play.nowManKey;
 	play.showPane(com.mans[play.nowManKey].x ,com.mans[play.nowManKey].y,x,y)
-	
+
 	com.mans[play.nowManKey].x = x;
 	com.mans[play.nowManKey].y = y;
 	play.nowManKey = false;
-	
+
 	com.show()
 	if (key == "j0") play.showWin (-1);
 	if (key == "J0") play.showWin (1);
@@ -374,8 +293,7 @@ play.AIclickPoint = function (x,y){
 		play.map[y][x] = key;
 		
 		com.showPane(man.x,man.y,x,y)
-		
-	
+
 		man.x = x;
 		man.y = y;
 		play.nowManKey = false;
@@ -393,7 +311,7 @@ play.indexOfPs = function (ps,xy){
 	
 }
 
-//获得点击的着点
+//get the clickPoint
 play.getClickPoint = function (e){
 	var domXY = com.getDomXY(com.canvas);
 	var domXY = com.getDomXY(com.canvas);
@@ -402,7 +320,7 @@ play.getClickPoint = function (e){
 	return {"x":x,"y":y}
 }
 
-//获得棋子
+//obtenir la piece cliqu茅
 play.getClickMan = function (e){
 	var clickXY=play.getClickPoint(e);
 	var x=clickXY.x;
@@ -414,14 +332,11 @@ play.getClickMan = function (e){
 play.showWin = function (my){
 	play.isPlay = false;
 	if (my==play.myUser){
-		alert("congratulations, u win！");
+		alert("Congratulations, YOU WIN!");
 	}else{
-		alert("what a pity, u loss！");
+		alert("what a pity, you have lost");
 	}
 }
-
-
-
 
 
 
@@ -431,9 +346,8 @@ play.showWin = function (my){
 
 
 //en appuyant sur le btn start, on cree une partie.
-//Ici on récupère l'id du partie
+//Ici on r茅cup猫re l'id du partie
 play.setIdPartie = function(hash){
-
 	$.ajax({
 		type: "GET",
 		url: "./data"+"/setIdPartie.php",
@@ -445,7 +359,6 @@ play.setIdPartie = function(hash){
 
 		}
 	});
-
 	return play.idPartie;
 }
 
@@ -460,10 +373,16 @@ play.checkMyUser = function(hash){
 		type: "GET",
 		url: "./data"+"/checkMyUser.php",
 		//data: {"idPartie":idPartie,"hash":"0b527ad35a7983fa5c9abdf31825c3cb"},
-		data: {"idPartie":"3","hash":hash},
+		data: {"idPartie":idPartie,"hash":hash},
 		success: function(oRep){
 			console.log("player est =" + oRep);
 			play.myUser = oRep;
 		}
 	});
+}
+
+play.countTime=function(){
+	if(play.my==play.myUser){
+		TempsRest--;
+	}
 }

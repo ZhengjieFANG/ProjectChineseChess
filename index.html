@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>ChineseChess</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+
+<script src="js/jquery-3.5.1.min.js" ></script>
+<script src="js/utils.js"></script>
+<script src="js/ajax.js"></script>
+<script>
+
+    $(document).ready(function(){
+        console.log("Accueil par default");
+        showAccueil();
+        // setInterval(function(){if(getEtatTable(1)=="2"){
+        // // creation label assister
+        // }},500);
+        setInterval(function(){
+            var idTable = yourSit.substring(6,7);
+            if(idTable!="0"){
+                checkPartie(idTable);
+            }
+        },5000)
+
+        setInterval(getEtatTable,500,1);
+        setInterval(getEtatTable,500,2);
+        setInterval(getEtatTable,500,3);
+        setInterval(getEtatTable,500,4);
+        setInterval(function(){
+            var value=checkEtatTable();
+            var position = yourSit.substring(7,8);
+            if(value=="2"){
+                if(position==1) $("#btnReadyStart").prop('disabled',false).text("Start");
+                else $("#btnReadyStart").prop('disabled',true).text("U are ready!");
+            } else if(value=="1"){
+                if (position == 1) $("#btnReadyStart").prop('disabled',true).text("Start");
+                else $("#btnReadyStart").prop('disabled',true).text("U are ready!");
+            }else{
+                $("#btnReadyStart").prop('disabled',false).text("Ready");
+            }
+        },1000);
+    });
+
+
+    //ACCUEIL
+    $(document).on("click","#labelAccueil",function(){
+        console.log("page accueil");
+        showAccueil();
+        if(hash!=null){
+            setEtatPage(0);
+        }
+    });
+
+    //CONNEXION
+    $(document).on("click","#labelSeConnecter",function(){
+        console.log("page connexion");
+        showConnextion();
+    });
+
+    $(document).on("click","#btnEnregistrer",function(){
+        var pseudo=$("#pseudo").val();
+        var password=$("#password").val();
+        console.log("pseudo: "+pseudo+", password "+password);
+        if(pseudo!=""){
+            if(password!="") signUp(pseudo,password);
+        }else{
+            alert("Pseudo or password can not be empty");
+        }
+    });
+
+    $(document).on("click","#btnSeConnecter",function(){
+        var pseudo=$("#pseudo").val();
+        var password=$("#password").val();
+        console.log("pseudo: "+pseudo+", password :"+password);
+        if(pseudo!=="" ){
+            if(password!="") signIn(pseudo,password);
+        }else{
+            alert("Pseudo or passwprd can not be empty");
+        }
+    });
+
+
+    //AJOUTER AMIS
+    $(document).on("click","#btnAjouterAmi",function(){
+        console.log("click sur btnAjouterAmi");
+        $("#TextAmiId").select();
+        var pseudoAmi=$("#TextAmiId").val();
+        console.log(pseudoAmi);
+        ajouterAmi(pseudoAmi);
+        $("#TextAmiId").val("");
+    });
+
+    $(document).on("click","#TextAmiId",function(){
+        $("#TextAmiId").select();
+    });
+
+
+    var jTireAmisBlock=$("<h2>").html("Mes amis");
+    var jPeusoAmis=$("<h3>");
+    var jLabelPeusoAmis = $("<strong>");
+    var jBarAmis=$("<div>");
+    var jBtnInviterAmi=$("<input type='button'>")
+        .val("Inviter")
+        .css("float","right" )
+        .click(function () {
+            var pseudoAmi=$(this).prev().html();
+            console.log("click sur BtnInviterAmi");
+            inviterAmi(pseudoAmi);
+        });
+
+
+    //PROFIL
+    $(document).on("click","#labelProfil",function(){
+        console.log("page Profil");
+        showProfil();
+    });
+
+
+    //SALON
+    $(document).on("click","#labelSalon",function(){
+        console.log("page salon");
+        showSalon();
+    });
+
+
+    //DECONNECTER
+    $(document).on("click","#labelDeconnecter",function(){
+        console.log("Deconnecter");
+        signOut();
+        showAccueil();
+    });
+
+    //QUITTER
+    $(document).on("click","#labelQuitter",function(){
+        if(confirm("Are you sure you want to quit game?")){
+            console.log("quitter page jeu");
+            quitterPartie(yourPartie);
+        }else{
+            return;
+        }
+    });
+
+    var TimeFn = null;
+
+    $(document).on("click",".chaise",function(){
+        clearTimeout(TimeFn);
+        var str = $(this).attr('id');
+        TimeFn = setTimeout(function(){
+            //do function在此处写单击事件要执行的代码
+            console.log("sit down");
+            console.log(str);
+            var idTable = str.substring(6, 7);
+            var idSit = str.substring(7,8);
+            sitTable(pseudoGlo,idTable,idSit);
+        },300);
+    });
+
+   $(document).on("dblclick",".chaise",function(){
+        clearTimeout(TimeFn);
+        var nomSit=$(this).attr('id');
+        var pseudoCourrent=nomChaiseTable[nomSit];
+        if(pseudoCourrent!=pseudoGlo){
+            return;
+        }else{
+            console.log("stand up "+nomSit);
+            var idTable = nomSit.substring(6, 7);
+            var idSit = nomSit.substring(7,8);
+            quitterTable(pseudoGlo,idTable,idSit);
+        }
+    });
+
+
+    $(document).on("click","#btnReadyStart",function(){
+        if(yourSit=="0"){
+            alert("You shoule first sit at a chaise");
+        }else{
+            if ($(this).text()=="Start"){
+                idTable = yourSit.substring(6,7);
+                console.log(idTable + "starting")
+                creerPartie(idTable);
+                showJeu();
+            }
+            if ($(this).text()=="Ready"){
+                setEtatReady(pseudoGlo,1);
+            }
+        }
+    });
+
+
+    var jpMessage=$("<p>")
+        .html("");
+
+    var  btnEnvoyerMessage=$("<input type='button'>")
+        .val("Envoyer")
+        .click(function(){
+            console.log("cliquer sur Envoyer");
+            var message=$(this).prev().val();
+            if(message!=""){
+                console.log("message: "+message);
+                envoyerMessage(message);
+                $(this).prev().val("");
+            }
+        });
+
+    var textareaEnvoyerMessage=$("<input type='text'>")
+        .click(function(){
+            $(this).select();
+        })
+        .keydown(function(contexte){
+            //console.log("appuyer sur "+ contexte.which);
+            if(contexte.which==13){  //appuyer sur ENTER
+                var message=$(this).val();
+                if(message!=""){
+                    console.log("message: "+message);
+                    envoyerMessage(message);
+                    $(this).val("");
+                }
+            }
+        });
+
+
+    var divEnvoyerMessage=$("<div>")
+        .append(textareaEnvoyerMessage)
+        .append(btnEnvoyerMessage);
+
+</script>
+
+
+<body>
+<div id="header">
+    <div id="logo">
+        <img src="img/ressources/logo.jpg"/>
+    </div>
+    <div id="labelAccueil" class="soutitre">Accueil</div>
+    <div id="labelSeConnecter" class="soutitre">Se Connecter</div>
+    <div id="labelProfil" class="soutitre">Profil</div>
+    <div id="labelSalon" class="soutitre">Salon</div>
+    <div id="labelDeconnecter" class="soutitre">Déconnecter</div>
+    <div id="labelQuitter" class="soutitre">Quitter</div>
+    <div id="chercherAmis">
+        <input id="TextAmiId" type="text" name="amiId" value="Entrer User Pseudo">
+        <input id="btnAjouterAmi" type="button" value="Ajouter">
+    </div>
+</div>
+
+<div id="accueil">
+    <h1>中国象棋</h1>
+    <hr/>
+    <p>
+        中国象棋是起源于中国的一种棋，属于二人对抗性游戏的一种，在中国有着悠久的历史。由于用具简单，趣味性强，成为流行极为广泛的棋艺活动。
+        中国象棋是中国棋文化，也是中华民族的文化瑰宝，它源远流长，趣味浓厚，基本规则简明易懂。
+        象棋与国际象棋及围棋并列世界三大棋类之一，类似的有朝鲜将棋、日本将棋等。象棋主要流行于全球华人、越南人及琉球人社区，是首届世界智力运动会的正式比赛项目之一。
+    </p>
+    <h3>棋盘</h3>
+    <IMG src="img/ressources/chessboard2.jpg" alt="象棋棋盘"/>
+    <P>棋子活动的场所，叫作“棋盘”。在方形的平面上，由九条平行的竖线和十条平行的横线相交组成，共有九十个交叉点，棋子就摆在交叉点上。中间部分，也就是棋盘的第五，第六两横线之间未画竖线的空白地带称为“河界”。两端的中间，也就是两端第四条到第六条竖线之间的正方形部位，
+        以斜交叉线构成“米”字方格的地方，叫作“九宫”（它恰好有九个交叉点）。整个棋盘以“河界”分为相等的两部分。为了比赛记录和学习棋谱方便起见，现行规则规定：按九条竖线从右至左用中文数字一至九来表示红方的每条竖线，用阿拉伯数字“1”~“9”来表示黑方的每条竖线。对弈开始之前，红黑双方应该把棋子摆放在规定的位置。任何棋子每走一步，进就写“进”，退就写“退”，如果像车一样横着走，就写“平”。</P>
+    <p>现行的中式记录方法是：9条纵线，红方从右到左用汉字“一”至“九”表示，黑方在自己的那一面从右到左用数字“1”至“9”表示。也就是说，红方的纵线“一”就是黑方的纵线“9”，以此类推。第四条纵线（或第6条纵线）和第六条纵线（或第4条纵线）称为“两肋”、“两肋线”，简称“肋”。棋盘上，划有斜交叉线而构成“米”字形方格的地方，双方各有一块，称为“九宫”，是将（帅）和士（仕）活动的区域。</p>
+    <p><strong>直线</strong><br/>
+        棋盘上较长的平行排列的边称为直线，共有9条，其中7条被河界隔断。用红色棋子一方的直线从右往左依次用中文数字一、二、三、四、五、六、七、八、九表示;用黑色棋于一方的直线在红方对面也从右往左依次用阿拉伯数字1、2、3、4、5、6、7、8、9表示。</p>
+    <p><strong>横线</strong><br/>
+        棋盘上较短的平行排列的边称为横线。横线共有10条，用红色棋子一方的横线从红方底线算起，从下往上依次用中文数字一至十表示;用黑色棋子一方的横线则从黑方底线开始，依次用阿拉伯数字1-10表示。</p>
+    <p><strong>交叉点</strong><br/>
+        直线与横线相交的地方称为“交叉点”。整个棋盘共有90个交叉点，棋子就摆放和活动在这些交叉点上。</p>
+    <p><strong>河界</strong><br/>
+        棋盘中央没有画直线的地方称为“河界”。它代表弃战双方的分界线，确定了各自的地域。</p>
+    <p><strong>九宫</strong><br/>
+        棋盘两端各画有斜交叉线的地方称为“九宫”。将则只能在各自“九宫”的9个交叉点上活动。</p>
+    <h3>棋子</h3>
+    <p>棋子共有三十二个，分为红、黑两组，每组共十六个，各分七种，其名称和数目如下：<br/>
+        红棋子：帅一个，车、马、炮、相、仕各两个，兵五个。<br/>
+        黑棋子：将一个，车、马、炮、象、士各两个，卒五个。</p>
+    <p><strong>帅/将</strong><br/>
+        红方为“帅”，黑方为“将”。帅和将是棋中的首脑，是双方竭力争夺的目标。
+        它只能在“九宫”之内活动，可上可下，可左可右，每次走动只能按竖线或横线走动一格。帅与将不能在同一直线上直接对面，否则走方判负。
+    </p>
+    <p><strong>仕/士</strong><br/>
+        红方为“仕”，黑方为“士”。它也只能在九宫内走动。它的行棋路径只能是九宫内的斜线。士一次只能走一个斜格。
+    </p>
+    <p><strong>象/相</strong><br/>
+        红方为“相”，黑方为“象”。它的走法是每次循对角线走两格，俗称“象飞田”。相（象）的活动范围限于“河界”以内的本方阵地，不能过河，且如果它走的“田”字中央有一个棋子，就不能走，俗称“塞象眼”。
+    </p>
+    <p><strong>车</strong><br/>
+        车在象棋中威力最大，无论横线、竖线均可行走，只要无子阻拦，步数不受限制。俗称“车行直路”。因此，一车最多可以控制十七个点，故有“一车十子寒”之称。
+    </p>
+    <p><strong>炮</strong><br/>
+        炮在不吃子的时候，走动与车完全相同，但炮在吃子时，必须跳过一个棋子，我方的和敌方的都可以，俗称“炮打隔子”、“翻山”。
+    </p>
+    <P><strong>马</strong><br/>
+        马走动的方法是一直一斜，即先横着或直着走一格，然后再斜着走一个对角线，俗称“马走日”。马一次可走的选择点可以达到四周的八个点，故有“八面威风”之说。如果在要去的方向有别的棋子挡住，马就无法走过去，俗称“蹩马腿”。
+    </P>
+    <p><strong>兵/卒</strong><br/>
+        红方为“兵”，黑方为“卒”。
+        兵（卒）只能向前走，不能后退，在未过河前，不能横走。过河以后还可左、右移动，但也只能一次一步，即使这样，兵（卒）的威力也大大增强，故有“小卒过河顶大车”之说
+    </p>
+    <h3>象棋规则</h3>
+    <p>中国象棋是由两人轮流走子，在战法上遵循古代孙子兵法中的“不战而屈人之兵，善之善者也”的作战思想，以“将死”或“困毙”对方将（帅）为胜的一种二人对抗性游戏。对局时，由执红棋的一方先走，双方轮流各走一招，直至分出胜、负、和，对局即终了。在棋战中，人们可以从攻与防、虚与实、整体与局部等复杂关系的变化中提升思维能力。</p>
+    <p><strong>行棋规定</strong><br/>
+        对局开始前，双方棋子在棋盘上的摆法见右图。
+        对局时，由执红棋的一方先走，双方轮流走一步。
+        轮到走棋的一方，将某个棋子从一个交叉点走到另一个交叉点，或者吃掉对方的棋子而占领其交叉点，都算走了一着。
+        双方各走一着，称为一个回合。
+        走一着棋时，如果己方棋子能够走到的位置有对方棋子存在，就可以把对方棋子吃掉而占领那个位置。
+        一方的棋子攻击对方的帅（将），并在下一着要把它吃掉，称为“照将”，或简称“将”。“照将”不必声明。被“照将”的一方必须立即“应将”，即用自己的着法去化解被“将”的状态。如果被“照将”而无法“应将”，就算被“将死”。
+    </p>
+    <P><strong>胜负规则</strong><br/>
+        对局中，出现下列情况之一，本方算输，对方赢：
+    <ul>
+        <li>己方的帅（将）被对方棋子将死或吃掉；</li>
+        <li>己方无子可走（被困毙）；</li>
+        <li>己方对对方“长将”或“长捉”；</li>
+        <li>己方发出认输请求；</li>
+        <li>有步时要求的，己方走棋超出步时限制；</li>
+        <li>有时间要求的，超过规定时间；</li>
+        <li>违反比赛规则。</li>
+    </ul>
+    </P>
+    <p>
+        出现下列情况之一，为和棋：
+    <ul>
+        <li>双方均无可能取胜的简单局势；</li>
+        <li>一方提议作和，另一方表示同意；</li>
+        <li>双方走棋出现循环反复三次，符合《棋例》中“不变作和”的有关规定；</li>
+        <li>符合自然限着的回合规定，即在连续60个回合中（也可根据比赛等级酌减），双方都没有吃过一个棋子。</li>
+    </ul>
+
+    </p>
+
+<!--    <h1>Echec Chinois - Xiang Qi</h1>-->
+<!--    <hr/>-->
+<!--    <p>-->
+<!--        Ce jeu se joue avec 16 pièces par joueur qui sont placées sur les intersections des lignes. Les deux camps sont le rouge et le noir. Une rivière, qui limite aussi les déplacements autorisés de certaines pièces, sépare les deux camps sur le plateau où figure aussi la position de chaque palais.-->
+
+<!--    </p>-->
+<!--    <h3>Mécanisme</h3>-->
+<!--    <img src="img/ressources/chessboard2.jpg" alt="象棋棋盘"/>-->
+<!--    <P>Vous ne pouvez pas faire de déplacement dans la rivière. Vous devez la traverser pour jouer.-->
+<!--    </P>-->
+<!--    <p>Dans chaque camp, il y a un palais impérial (parcouru par des lignes diagonales) que le général et les gardes n'ont pas le droit de quitter.-->
+<!--        Les pièces peuvent uniquement se déplacer entre ces points d'intersection, comme dans un jeu de Go.-->
+<!--    </p>-->
+<!--    <h3>Les pièces</h3>-->
+<!--    <p>-->
+<!--        Comme aux échecs occidentaux, le but est de capturer le général de l'autre joueur. Vous devez utiliser vos autres pièces pour mettre le général de votre adversaire en position d'échec et mat. Ce faisant, vous essaierez de prendre autant de ses pièces que possible pour pouvoir effectuer un échec et mat plus facilement.-->
+<!--    </p>-->
+<!--        <h3>Le Général</h3>-->
+<!--        <p>Un Roi se déplace d'une case verticalement ou horizontalement, il ne peut pas se déplacer en diagonale. Il ne doit jamais quitter son palais. Comme aux échecs standard, un roi n'est pas autorisé à se déplacer sur un endroit où il est attaqué par une pièce ennemie. Si un roi est menacé (il est en échec), le joueur concerné doit parer l'échec immédiatement. Si ce n'est pas possible, le joueur perd la partie.-->
+
+<!--        Mais comme il est illégal de se mettre en échec, un joueur ne peut faire aucun mouvement qui conduirait à mettre les deux généraux l’un en face de l’autre sur une même ligne sans aucune autre pièce entre eux. C’est une pièce importante du jeu, car il joue souvent un rôle dans la mise en place du mat, tout spécialement lorsque beaucoup d’autres pièces ont été échangées, car chaque général peut contrôler une ligne devant lui : il dispose d’un avantage s’il contrôle la ligne centrale car il empêche l’autre général de se déplacer latéralement.-->
+<!--    <h3>Les Gardes</h3>-->
+<!--    <p>-->
+<!--    Un garde se déplace d'une intersection en diagonale et tout comme le Roi, il ne doit jamais quitter son palais.-->
+<!--    En d'autres termes, chaque garde a uniquement 5 positions possibles à l'intérieur de son palais.-->
+<!--    </p>-->
+
+<!--    <h3>2 éléphants</h3>-->
+<!--    <p>-->
+<!--        Ces pièces se déplacent uniquement en diagonale, mais toujours de deux cases exactement, et ne peuvent pas sauter par-dessus une autre pièce, ni prendre une pièce au milieu de sa diagonale (un éléphant ou ministre dans cette situation est alors bloqué dans cette direction et dit « boiteux »). Les éléphants ou ministres ne sont pas autorisés à traverser la rivière centrale.-->
+<!--    </p>-->
+<!--    <h3>2 chevaux(proches des cavaliers aux échecs occidentaux)</h3>-->
+<!--    <p>-->
+<!--        Un cavalier se déplace d'une intersection verticalement ou horizontalement, suivit d'une intersection à l'extérieur et en diagonale. Il y a une différence significative entre les échecs occidentaux et le Xiangqi car un cavalier ne peut sauter par dessus des intersections occupées. Le diagramme montre (points verts) tous les coups possibles pour le cavalier rouge, dès lors que le pion noir bloque ceux de gauche.-->
+<!--    </p>-->
+
+<!--    <h3>2 canon</h3>-->
+<!--    <p>-->
+<!--        Ils se déplacent horizontalement et verticalement exactement comme les chariots (ou tours). Ils peuvent donc être amenés rapidement sur toutes les positions du plateau, à condition de ne pas se trouver bloqués par une autre pièce sur ce chemin.-->
+<!--    </p>-->
+<!--    <p>Mais leur façon de capturer est très différente et originale. Pour capturer une pièce, il doit y avoir exactement une pièce (amie ou ennemie) entre le canon et la pièce à prendre. Ensuite le canon se déplace directement jusqu’à la pièce ennemie et la capture (la pièce d’appui reste sur place).-->
+<!--    </p>-->
+<!--    <p>Ainsi toute position entre la pièce d’appui et la pièce ennemie prise ne peut être occupée immédiatement ; la seule solution pour sauter un obstacle bloquant et occuper ces positions protégées par la pièce d'appui est alors de bénéficier d'une occasion de prise offerte par l’adversaire. En attendant une telle occasion, ils peuvent être à la merci des pions attaquants qui auraient traversé la rivière. Les canons sont donc puissants au début de la partie lorsque les « haies » sont nombreuses, mais perdent rapidement de la valeur avec la guerre d’usure.-->
+<!--    </p>-->
+
+<!--    <h3>2 chariots</h3>-->
+<!--    <p>-->
+<!--        Comme la tour des échecs occidentaux, le chariot (ou voiture) prend le long d’une ligne droite verticale ou horizontale (il n’y a cependant pas de possibilité de roque avec son roi). Certains occidentaux désignent donc cette pièce sous le nom de « tour » en raison de cette similitude, mais aussi sous le nom de « voiture » car c’est aussi une signification moderne du sinogramme 車.-->
+<!--    </p>-->
+
+<!--    <h3>5 soldats</h3>-->
+<!--    <p>-->
+<!--        Comme les pions des échecs occidentaux, ils sont en première ligne et se déplacent droit devant eux, d’une case à la fois; cependant ils capturent droit devant. Mais une fois qu’ils ont franchi la rivière, ils peuvent aussi se déplacer (et capturer) d’une case horizontalement. Ils ne peuvent donc pas occuper tout le terrain chez eux où ils n’ont pas vocation à rester, mais peuvent aller partout dans le camp ennemi, même si ce sont des pièces lentes.-->
+<!--    </p><p>-->
+<!--        Contrairement aux pions des échecs occidentaux, ils ne sont pas bloqués par un soldat ou bandit ennemi devant eux (qu’ils peuvent capturer). Et ils n’ont pas de promotion lorsqu’ils atteignent le bord du terrain adverse, mais ils peuvent continuer à se déplacer latéralement pour assiéger le palais ou y entrer en fin de partie. En général on évite de les « enliser » ainsi trop vite, les pions étant plus utiles et plus puissants sur la quatrième ligne adverse et perdant de leur influence ensuite à mesure qu’ils s’avancent plus loin.-->
+<!--    </p>-->
+<!--    -->
+</div>
+
+<div id="connexion">
+    <h1>Connexion</h1>
+    <div id="formLogin">
+        <fieldset>
+            <label for="pseudo">Pseudo:</label><br>
+            <input type="text" id="pseudo" value=""><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" value=""><br><br>
+            <input id="btnSeConnecter" type="submit"  value="Se connecter" />
+            <input id="btnEnregistrer" type="submit" value="Enregistrer" />
+        </fieldset>
+    </div>
+</div>
+
+<div id="salon">
+    <div id="salonBlock">
+        <h1>Salon</h1>
+        <div id="salleSalon">
+            <div class="tableBlock">
+                <div id="chaise11" class="chaise">12313</div>
+                <div id="table1" class="table">ready</div>
+                <div id="chaise12" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise21" class="chaise"></div>
+                <div id="table2" class="table"></div>
+                <div id="chaise22" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise31" class="chaise"></div>
+                <div id="table3" class="table"></div>
+                <div id="chaise32" class="chaise"></div>
+            </div>
+            <div class="tableBlock">
+                <div id="chaise41" class="chaise"></div>
+                <div id="table4" class="table"></div>
+                <div id="chaise42" class="chaise"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="amiListBlock">
+        <h3>Amis List</h3>
+
+    </div>
+
+    <div id="settingBlock">
+        <h3>Setting</h3>
+        Temps par coup :
+        <select id="tempsParCoup" name="tempsParCoup" >
+            <option value="1">1 min</option>
+            <option value="2">2 min</option>
+            <option value="3">3 min</option>
+            <option value="4">4 min</option>
+            <option value="5">5 min</option>
+        </select>
+        <br>
+        Nombre de regrette :
+        <select id="nbRegrette" name="nbRegrette">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <br>
+        Style échiquier :
+        <br>
+        <input type="radio" id="chinois" name="styleEchiquier" value="stype2">
+        <label for="chinois">Chinois</label>
+        <input type="radio" id="classique" name="styleEchiquier" value="stype1">
+        <label for="classique">Classique</label>
+        <br>
+        <button id="btnReadyStart" type="button" >Ready</button>
+    </div>
+</div>
+
+<div id="jeu">
+    <div id="chessBoardBlock">
+        <div id="chessBoard">
+            <body>
+            <div class="box" id="box">
+                <div class="chess_left">
+                    <canvas id="chess">cant load canvas</canvas>
+                    <div>
+                        <div class="bn_box" id="bnBox">
+                            <input type="button" name="offensivePlay" id="superPlay" class="btnChessBoard" value="Start" />
+                            <input type="button" name="regret" id="regretBn" class="btnChessBoard" value="Regret" />
+                            <input type="button" name="stypeBn" id="stypeBn" class="btnChessBoard" value="Change style" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="js/common.js"></script>
+            <script src="js/play.js"></script>
+            </body>
+        </div>
+
+        <div class="profilBoard">
+            WANG Chuanrui
+            <br>
+            Coup
+            <br>
+            Match
+        </div>
+
+        <div class="profilBoard">
+            WANG Chuanrui
+            <br>
+            Coup
+            <br>
+            Match
+        </div>
+    </div>
+
+    <div id="chatBlock">
+        <h3>Chat</h3>
+        <div id="chatContenu"></div>
+    </div>
+</div>
+
+<div id="profil">
+    <div id="statistiqueBlock">
+        <h1 id="pseudoLabel">FANG Zhengjie</h1>
+        <h3 id="userId"> ID: 1071 </h3>
+        <h3 id="mmr">Mmr : 320894 </h3>
+    </div>
+    <div id="amisBlock">
+
+    </div>
+
+</div>
+
+</body>
+</html>

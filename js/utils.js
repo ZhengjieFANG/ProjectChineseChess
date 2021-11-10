@@ -78,7 +78,6 @@ trace("Chargement Librairie utils.js (trace, debug, html, val, show, hide) OK");
 
 function showAccueil(){
 	if(hash==null){
-		console.log("showAccueil, hash==null :"+hash);
 		show("labelAccueil","inline-block");
 		show("labelSeConnecter","inline-block");
 		hide("labelProfil");
@@ -91,8 +90,9 @@ function showAccueil(){
 		hide("profil");
 		hide("salon");
 		hide("jeu");
+		setEtatPage(-1);
+		console.log("showAccueil, hash="+hash+", etatPage="+etatPage);
 	}else{
-		console.log("showAccueil, hash :"+hash);
 		show("labelAccueil","inline-block");
 		hide("labelSeConnecter");
 		show("labelProfil","inline-block");
@@ -105,6 +105,9 @@ function showAccueil(){
 		hide("profil");
 		hide("salon");
 		hide("jeu");
+		setEtatPage(0);
+		setEtatReady(pseudoGlo,0);
+		console.log("showAccueil, hash="+hash+", etatPage="+etatPage);
 	}
 }
 
@@ -121,6 +124,8 @@ function showConnextion(){
 	hide("profil");
 	hide("salon");
 	hide("jeu");
+	setEtatPage(-1);
+	console.log("showConnextion, etatPage="+etatPage);
 }
 
 function showProfil(){
@@ -136,6 +141,11 @@ function showProfil(){
 	show("profil");
 	hide("salon");
 	hide("jeu");
+	getStatistiques();
+	getAmisInProfil();
+	setEtatPage(0);
+	setEtatReady(pseudoGlo,0);
+	console.log("showProfil, etatPage="+etatPage);
 }
 
 function showSalon(){
@@ -151,6 +161,9 @@ function showSalon(){
 	hide("profil");
 	show("salon");
 	hide("jeu");
+	getAmisInSalon();
+	setEtatPage(1);
+	console.log("showSalon, etatPage="+etatPage);
 }
 
 function showJeu(){
@@ -166,6 +179,15 @@ function showJeu(){
 	hide("profil");
 	hide("salon");
 	show("jeu");
+	setPartieConfiguration()
+	com.init(styleEchiquier);
+	play.init();
+	com.show();
+	$("#chatContenu").after(divEnvoyerMessage);
+	setInterval(listerMessages,1000,yourPartie);
+	setEtatPage(2);
+	console.log("showSalon, etatPage="+etatPage);
+	console.log("styleEchiquier="+styleEchiquier);
 }
 
 

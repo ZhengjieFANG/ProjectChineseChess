@@ -125,6 +125,7 @@ CREATE TABLE `chat` (
   `id` int(11) NOT NULL COMMENT 'Identifiant du message',
   `idPartie` int(11) NOT NULL COMMENT 'Clé étrangère vers la table des parties',
   `idAuteur` int(11) NOT NULL COMMENT 'clé étrangère vers la table des Users',
+  `pseudoAuteur` varchar(20) NOT NULL,
   `texte` varchar(100) CHARACTER SET latin1 NOT NULL COMMENT 'Contenu du message',
   PRIMARY KEY (`id`),
   FOREIGN KEY (idPartie) REFERENCES partie(id)
@@ -169,12 +170,12 @@ INSERT INTO `partie` (`id`,`idTable`,`idUser1`,`idUser2`,`etatPartie`) VALUES
 -- Dumping data for table `chat`
 --
 
-INSERT INTO `chat` (`id`, `idPartie`, `idAuteur`, `texte`) VALUES
-(1, 1, 3, 'Que penses-tu de la nouvelle organisation des cours en EBM ? Pas mal, non ?'),
-(2, 2, 2, 'Que va faire la France, cette fois-ci ?'),
-(3, 2, 2, 'Elle se qualifiera pour le mondial !'),
-(6, 2, 1, 'Hum... Pas sûr... espérons-le ! '),
-(5, 1, 2, 'Oui, tu as raison');
+INSERT INTO `chat` (`id`, `idPartie`, `idAuteur`, `pseudoAuteur`, `texte`) VALUES
+(1, 1, 3, 'maxime','Que penses-tu de la nouvelle organisation des cours en EBM ? Pas mal, non ?'),
+(2, 2, 2, 'fang','Que va faire la France, cette fois-ci ?'),
+(3, 2, 2, 'fang','Elle se qualifiera pour le mondial !'),
+(6, 2, 1, 'wang','Hum... Pas sûr... espérons-le ! '),
+(5, 1, 2, 'fang','Oui, tu as raison');
 
 --
 -- Indexes for dumped tables

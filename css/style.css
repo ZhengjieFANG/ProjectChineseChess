@@ -1,4 +1,3 @@
-/*@charset "gb2312";*/
 
 body {
     font-size: 20px;
@@ -98,6 +97,10 @@ body {
 
 }
 
+#accueil ul{
+    margin: 30px;
+}
+
 #accueil img{
     float:right;
     margin: 20px;
@@ -142,26 +145,38 @@ body {
 
 #amiListBlock{
     float: left;
-    width: 19%;
+    width: 17%;
+    height: 360px;
     border :1px solid black;
     padding-bottom:10px;
     padding-top: 10px;
     padding-left: 35px;
+    padding-right: 35px;
     margin:15px;
     text-align:left;
+    overflow :auto;
 }
 
 #settingBlock{
     float: left;
-    width: 19%;
+    width: 17%;
     border :1px solid black;
-    padding-bottom:10px;
+    padding-bottom:30px;
     padding-top: 10px;
     padding-left: 35px;
-    margin:15px;
+    padding-right: 35px;
+    margin:22px 15px;
     text-align:left;
     white-space:nowrap;
 }
+
+#tempsParCoup{
+    float: right;
+}
+#nbRegrette{
+    float: right;
+}
+
 
 .tableBlock{
     float: left;
@@ -181,27 +196,29 @@ body {
     border-radius: 50px;
     margin: 10px;
     background: lightgray;
-    color: white;
+    color: #bf882a;
+    line-height: 40px;
+    text-align: center;
 }
 
 .table{
+    position: absolute;
+    left: 105px;
+    top:60px;
     width: 200px;
     height: 120px;
     border :1px solid black;
     background-color: saddlebrown;
     text-align: center;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
+    /*css中的vertical-align属性，但是它只对拥有valign特性的元素才生效*/
+    line-height: 120px;
 }
 #chaise11, #chaise21,#chaise31,#chaise41{
     position: absolute;
     left: 170px;
 }
 
-#table1,#table2,#table3,#table4{
-    position: absolute;
-    left: 105px;
-    top:60px;
-}
 
 #chaise12, #chaise22,#chaise32,#chaise42{
     position: absolute;
@@ -229,6 +246,12 @@ body {
     text-align:left;
 }
 
+#chatContenu{
+    max-height:520px;
+    overflow :auto;
+    margin-bottom: 30px;
+}
+
 
 #chessBoard{
     float: left;
@@ -253,20 +276,8 @@ body {
     margin-top: 5px;
 }
 
-.button {
-    background-image:url("../img/ressources/button.png");
-    border: none;
-    width: 130px;
-    height: 50px;
-    margin:0px 10px;
-    text-align: center;
-    display: inline-block;
-    font-size: 24px;
-}
 
-#buttonStart{
-    margin-left: 60px;
-}
+
 #statistiqueBlock{
     float: left;
     width: 60%;
@@ -279,13 +290,26 @@ body {
 #amisBlock{
     float: left;
     width: 29%;
+    height: 420px;
     border :1px solid black;
     padding-bottom:10px;
     padding-top: 10px;
     padding-left: 35px;
     margin:15px;
     text-align:left;
+    overflow :auto;
 }
+
+
+.btnChessBoard{
+    height: 30px;
+    margin:10px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+}
+
+
 
 #pied {
     bottom:5px;left:5px;right:5px;
@@ -295,8 +319,3 @@ body {
 }
 
 
-#titre {
-    border :1px solid black;
-    padding:20px;
-    margin:10px;
-}

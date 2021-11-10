@@ -1,0 +1,7 @@
+C'est un site concernant le jeu multijoueur de Xiangqi(echec chinois).
+Veuillez installer la base de donn¨¦es SQL avec ProjectChineseChess.libs.ChineseChess.sql.
+Veuillez aussi changer lib/config.php pour se coh¨¦rer avec votre base de donn¨¦es.
+Puis ouvrez la page chineseChess.html
+
+ps. il faut appuyer sur button 'quitter' pour quitter la partie!! Cela va changer l'¨¦tat de la partie.
+     sinon il risque d'avoir un bug si vous cliquer F5 sans quitter la partie. (caus¨¦ par checkPartie)
